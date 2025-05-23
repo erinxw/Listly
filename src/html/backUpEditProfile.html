@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    <link rel="icon" href="../assets/images/logo.png">
+    <link rel="stylesheet" href="../css/bootstrap.css">
+
+    <link rel="stylesheet" href="../css/editProfile.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" />
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&amp;display=swap">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.standalone.min.css">
+
+    <script>
+
+        if (sessionStorage.getItem("isLoggedIn") == "true") {
+
+
+        } else {
+            sessionStorage.clear();
+
+            window.location.href = 'login.html';
+
+
+        }
+    </script>
+
+
+</head>
+
+<body>
+
+    <div class="pageContent">
+        <div id="gradient"></div>
+        <div id="card">
+            <button class="back-button" id="backButton">
+                <i class="fas fa-arrow-left"></i>
+                Back
+            </button>
+            <!-- Modal -->
+            <!-- <div class="modal fade" id="modalCenter" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Delete Account</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure that you wanted to delete the account? 😭
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-danger" id="saveChangesBtn">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <div class="container rounded">
+
+                <div class="row">
+                    <div class="col-md-12 border-right profile-img">
+                        <div class="d-flex flex-column align-items-center text-center p-3 "><img class="rounded-circle"
+                                id="profileImage"
+                                src="https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg"
+                                width="90">
+                            <div class="file btn btn-primary">
+                                Change Photo
+                                <input type="file" name="file" id="file-input" />
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="col-md-12">
+                        <div class="p-3">
+
+                            <div class="row mt-2">
+                                <div class="col-6"><label>Firstname:</label><input type="text" id="firstNameInput"
+                                        class="form-control" placeholder="first name" value="Samantha"></div>
+                                <div class="col-6"><label>Lastname:</label><input type="text" id="lastNameInput"
+                                        class="form-control" value="Ruth" placeholder="last name"></div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-12"><label>Email:</label><span id="emailNote" class="note"> ( Enter
+                                        old password to change email or password )</span><input type="text"
+                                        id="emailInput" disabled class="form-control" placeholder="Email"
+                                        value="surenthar.rajamohan@yahoo.com">
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row mt-3">
+                                <div class="col-md-12"><label>Old Password:</label><input type="password"
+                                        id="oldPasswordInput" class="form-control" placeholder="Enter Password"
+                                        value=""></div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-6"><label>New Password:</label><input type="password" disabled
+                                        id="newPasswordInput" class="form-control" placeholder="Enter New Password"
+                                        value=""></div>
+                                <div class="col-6"><label>Confirm New Password:</label><input type="password" disabled
+                                        id="confirmPasswordInput" class="form-control" value=""
+                                        placeholder="Enter New Password"></div>
+                            </div>
+                            <div class="mt-4 butttonHolder "><button class="btn  w-100 profile-button" id="deleteButton"
+                                    data-toggle="modal" data-target="#modalCenter" type="button">Delete Profile</button>
+                            </div>
+                            <div class="mt-4 butttonHolder "><button class="btn  w-100 profile-button" id="saveButton"
+                                    type="button">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+<script src="../js/bootstrap.bundle.js"></script>
+<script>
+    document.getElementById("backButton").addEventListener("click", function (e) {
+        // Prevent the default action of the button
+        e.preventDefault();
+
+        // Change the current URL to the new page
+        window.location.href = "profile.html";
+    });
+
+
+
+
+
+    // All promises resolved, now you can access the saved data
+
+    const firstName = sessionStorage.getItem("firstName");
+    const lastName = sessionStorage.getItem("lastName");
+    const email = sessionStorage.getItem("email");
+    const imageURL = sessionStorage.getItem("imageURL");
+
+
+    var emailInput = document.getElementById('emailInput');
+    var firstNameInput = document.getElementById('firstNameInput');
+    var lastNameInput = document.getElementById('lastNameInput');
+    var profileImage = document.getElementById('profileImage');
+
+
+    emailInput.setAttribute('value', email);
+    firstNameInput.setAttribute('value', firstName);
+    lastNameInput.setAttribute('value', lastName);
+    profileImage.setAttribute('src', imageURL);
+
+
+
+</script>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+    import { getDatabase, child, ref, update, push, remove } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
+    import { getAuth, updateEmail, deleteUser, updatePassword, reauthenticateWithCredential, EmailAuthProvider } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+    import { getStorage, ref as storageRefImport, uploadBytes, deleteObject } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js";
+
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyCs8oBGLtVvXqX6A4vxOLD4c5ceBQcHYyA",
+        authDomain: "listly-to-do-list-app-7a80c.firebaseapp.com",
+        databaseURL: "https://listly-to-do-list-app-7a80c-default-rtdb.firebaseio.com",
+        projectId: "listly-to-do-list-app-7a80c",
+        storageBucket: "listly-to-do-list-app-7a80c.appspot.com",
+        messagingSenderId: "426555485808",
+        appId: "1:426555485808:web:3be48d388f62d663434eb5"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    ///////////////////Old password listener///////////////////////////
+
+    oldPasswordInput.addEventListener("input", function () {
+        var oldPassword = oldPasswordInput.value;
+
+        if (oldPassword.length >= 6) {
+            // Authenticate the user with the old password
+            var user = auth.currentUser;
+            const email = sessionStorage.getItem("email");
+
+            var credential = EmailAuthProvider.credential(user.email, oldPassword);
+            console.log(user.email + ": " + oldPassword + " " + user.uid + " " + credential);
+
+
+            reauthenticateWithCredential(user, credential).then(() => {
+                // User re-authenticated.
+                confirmPasswordInput.removeAttribute("disabled");
+                newPasswordInput.removeAttribute("disabled");
+                emailInput.removeAttribute("disabled");
+            }).catch((error) => {
+                // An error ocurred
+
+                confirmPasswordInput.setAttribute("disabled", "disabled");
+                newPasswordInput.setAttribute("disabled", "disabled");
+                emailInput.setAttribute("disabled", "disabled");
+                console.error(error);
+            });
+        }
+        else {
+            confirmPasswordInput.setAttribute("disabled", "disabled");
+            newPasswordInput.setAttribute("disabled", "disabled");
+            emailInput.setAttribute("disabled", "disabled");
+        }
+    });
+
+
+    /////////////////End of old password listener////////////////
+
+
+    ////////////////////////////Image Upload////////////////////////////////////////////////////////
+    function uploadFileToStorage(file) {
+        // Get a reference to the desired storage location
+        const uid = sessionStorage.getItem("userID");
+        const storage = getStorage();
+        const storageRef = storageRefImport(storage, 'userProfilePicture/' + uid);
+
+        // Upload the file
+        uploadBytes(storageRef, file)
+            .then((snapshot) => {
+                console.log('Uploaded a blob or file!', snapshot);
+                // The photo has been successfully uploaded
+            })
+            .catch((error) => {
+                console.error('Error uploading photo:', error);
+                // An error occurred while uploading the photo
+            });
+    }
+
+
+    // Get the file input and the profile image element
+    const fileInput = document.getElementById('file-input');
+    const profileImage = document.getElementById('profileImage');
+
+    // Add an event listener to the file input
+    fileInput.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+
+        // Read the uploaded file as a data URL
+        reader.readAsDataURL(file);
+
+        // Handle the file reading completion
+        reader.onload = () => {
+            // Update the src attribute of the profile image with the data URL
+
+            profileImage.src = reader.result;
+            uploadFileToStorage(file);
+        };
+    });
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////
+
+    function dataChanged(uid, firstNameValue, lastNameValue, emailValue) {
+        // Initialize Firebase
+
+
+        const updates = {};
+        updates['/users/' + uid + '/' + 'firstName/'] = firstNameValue;
+        updates['/users/' + uid + '/' + 'lastName/'] = lastNameValue;
+        updates['/users/' + uid + '/' + 'email/'] = emailValue;
+
+
+        return update(ref(database), updates);;
+
+    }
+
+    function authenticationChange(emailValue, newPassword = null) {
+        const userNow = auth.currentUser;
+
+        if (newPassword) {
+            updateEmail(userNow, emailValue).then(() => {
+                updatePassword(userNow, newPassword)
+                    .then(() => {
+                        // Password updated!
+                        console.log("Email and password updated successfully");
+                        // Change the current URL to the new page
+                        window.location.href = "profile.html";
+
+                    })
+                    .catch((error) => {
+                        // An error occurred while updating the password
+                        console.error("Error updating password:", error);
+                        console.log(error);
+                    });
+            }).catch((error) => {
+                // An error occurred
+                // ...
+                console.error("Error updating email:", error);
+                console.log(error);
+            });
+
+        } else {
+            updateEmail(userNow, emailValue).then(() => {
+                // Email updated!
+                alert('Email updated in authentication');
+                window.location.href = "profile.html";
+            }).catch((error) => {
+                // An error occurred
+                // ...
+                console.log(error);
+            });
+
+
+        }
+
+    }
+
+    document.getElementById("saveButton").addEventListener("click", function (e) {
+        // Prevent the default action of the button
+        e.preventDefault();
+        var canProceed = true;
+
+        var isDisabled = confirmPasswordInput.getAttribute("disabled") !== null;
+        if (newPasswordInput.value != null && (newPasswordInput.value == confirmPasswordInput.value)) {
+
+
+        } else if (isDisabled) {
+
+
+        } else {
+            canProceed = false;
+        }
+
+
+        if (canProceed) {
+            const uid = sessionStorage.getItem("userID");
+
+            var emailInput = document.getElementById('emailInput');
+            var firstNameInput = document.getElementById('firstNameInput');
+            var lastNameInput = document.getElementById('lastNameInput');
+
+            var emailChanged = emailInput.value;
+            var firstNameChanged = firstNameInput.value;
+            var lastNameChanged = lastNameInput.value;
+            var newPasswordChanged = newPasswordInput.value;
+
+            dataChanged(uid, firstNameChanged, lastNameChanged, emailChanged)
+                .then(() => {
+                    console.log("User data updated successfully");
+                    const credential = sessionStorage.getItem("password");
+
+                    // User re-authenticated.
+                    if (newPasswordChanged != null) {
+                        authenticationChange(emailChanged, newPasswordChanged);
+                    } else {
+                        authenticationChange(emailChanged);
+                    }
+
+                    // Change the current URL to the new page
+                    // window.location.href = "profile.html";
+                })
+                .catch((error) => {
+                    console.error("Error updating user data:", error);
+                });
+        } else {
+            alert("Please re-enter your new passwords correctly");
+        }
+
+    });
+
+
+    document.getElementById("deleteButton").addEventListener("click", function (e) {
+        // Prevent the default action of the button
+        e.preventDefault();
+
+        // Display confirmation pop-up
+        var confirmed = confirm("Are you sure you want to delete your account?");
+
+        if (confirmed) {
+            // Get the user ID
+            const uid = sessionStorage.getItem("userID");
+
+            // Remove user data
+            const userRef = ref(database, 'users/' + uid);
+            remove(userRef)
+                .then(() => {
+                    // User data successfully deleted
+                    console.log('User data deleted');
+
+                    // Remove task data
+                    const taskRef = ref(database, 'tasks/' + uid);
+                    remove(taskRef)
+                        .then(() => {
+                            // Task data successfully deleted
+                            console.log('Task data deleted');
+
+                            const uid = sessionStorage.getItem("userID");
+                            const storage = getStorage();
+                            const storageRef = storageRefImport(storage, 'userProfilePicture/' + uid);
+
+                            // Delete the file
+                            deleteObject(storageRef).then(() => {
+                                // File deleted successfully
+                                console.log('Photo data deleted');
+                                // Delete user account
+                                const userNow = auth.currentUser;
+                                deleteUser(userNow).then(() => {
+                                    // User account deleted
+                                    console.log('User account deleted');
+
+                                    // Redirect to the landing page
+                                    window.location.href = "landingPage.html";
+                                }).catch((error) => {
+                                    // An error occurred while deleting user account
+                                    console.error('Error deleting user account:', error);
+                                });
+
+                            }).catch((error) => {
+                                // Uh-oh, an error occurred!
+                                if (error.code === 'storage/object-not-found') {
+                                    // Treat it as a success
+                                    console.log('Object does not exist. Consider it a success.');
+                                    console.log('Photo data deleted');
+                                    // Delete user account
+                                    const userNow = auth.currentUser;
+                                    // deleteUser(userNow).then(() => {
+                                    //     // User account deleted
+                                    //     console.log('User account deleted');
+
+                                    //     // Redirect to the landing page
+                                    //     window.location.href = "landingPage.html";
+                                    // }).catch((error) => {
+                                    //     // An error occurred while deleting user account
+                                    //     console.error('Error deleting user account:', error);
+                                    // });
+                                    var user = auth.currentUser;
+                                    var credential; // This should be the user's current credential (e.g., password or OAuth token)
+
+                                    // Prompt the user to reauthenticate
+                                    user.reauthenticateWithCredential(credential).then(function () {
+                                        // User has been successfully reauthenticated
+                                        // Proceed with deleting the user account
+                                        firebase.auth().currentUser.delete().then(function () {
+                                            // User account deleted successfully
+                                            console.log('User account deleted successfully');
+                                        }).catch(function (error) {
+                                            // Handle the deletion error
+                                            console.error('Error deleting user account:', error);
+                                        });
+                                    }).catch(function (error) {
+                                        // Handle the reauthentication error
+                                        console.error('Error reauthenticating user:', error);
+                                    });
+
+
+                                } else {
+                                    // Handle other errors
+                                    console.error('Error deleting object:', error);
+                                }
+                            });
+
+
+                        })
+                        .catch((error) => {
+                            // An error occurred while deleting task data
+                            console.error('Error deleting task data:', error);
+                        });
+                })
+                .catch((error) => {
+                    // An error occurred while deleting user data
+                    console.error('Error deleting user data:', error);
+                });
+        } else {
+            // User cancelled the deletion
+            console.log('Deletion cancelled');
+        }
+    });
+
+
+
+</script>
+
+</html>

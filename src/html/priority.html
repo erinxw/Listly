@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initialscale=1">
+  <title>Priority Listing</title>
+  <link rel="icon" href="../assets/images/logo.png">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../css/notificationBadge.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- Custom CSS  -->
+  <link rel="stylesheet" href="../css/priority.css">
+  <script>
+
+    if (sessionStorage.getItem("isLoggedIn") == "true") {
+
+
+    } else {
+      sessionStorage.clear();
+
+      window.location.href = 'login.html';
+
+
+    }
+  </script>
+
+</head>
+
+<body>
+
+  <!-- For Navbar -->
+  <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand fs-2 fw-bold" href="home.html">
+        <img src="../assets/images/logo.png" alt="" width="50" height="50" class="d-inline-block align-text-center"
+          style="padding: 5px;">
+        Listly</a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 w-100">
+          <li class="nav-item">
+            <a class="nav-link " aria-current="page" href="home.html">Home</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="viewTaskProgress.html">Tasks</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="priority.html">Priority</a>
+          </li>
+
+          <li class="nav-item ms-lg-auto">
+
+
+
+            <button type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+              aria-controls="offcanvasRight" class="icon-button align-text-center d-inline-block me-2 mt-2">
+              <span class="material-icons bellButton">notifications</span>
+              <span class="icon-button__badge" id="notificationCount"></span>
+            </button>
+
+
+
+          </li>
+          <li class="nav-item  dropdown">
+            <a class="nav-link dropdown-toggle " href="#" role="button" id="navbarDropdownMenuLink"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="../assets/images/profile_icon.png" alt="Profile" width="30" height="30"
+                class="d-inline-block align-text-center me-2">
+              My Profile
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <li><a class="dropdown-item" href="profile.html">View Profile</a></li>
+              <li><a class="dropdown-item" id="logOut">Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+  </nav>
+
+  <!-- Priority Content -->
+  <div class="dropdown-container">
+    <label class="dropdown-label" for="sortOrder">Sort Order:</label>
+    <select class="dropdown-select" id="sortOrder">
+      <option value="asc">Ascending</option>
+      <option value="desc">Descending</option>
+      <option value="none">None</option>
+    </select>
+  </div>
+
+
+
+  <ul id="taskList" style="display: block;">
+    <!-- Task items -->
+  </ul>
+
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasRightLabel">Reminder Notifications</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+
+      <div class="list-group list-group-flush" style="max-height: 100vh; overflow-y: auto;">
+        <div class="list-group-item " id="sideBarList">
+          <!-- <div class="row mb-4 border">
+                <div class="col">
+                  <strong>Item 1 Title:</strong> Lorem ipsum dolor sit amet
+                </div>
+                <div class="col">
+                  <strong>Item 1 Description:</strong> Consectetur adipiscing elit
+                </div>
+                <div class="col">
+                  <strong>Priority:</strong> High
+                </div>
+                <div class="col">
+                  <strong>Due Date:</strong> 2023-06-17
+                </div>
+              </div> -->
+        </div>
+        <!-- Add more list items as needed -->
+      </div>
+    </div>
+  </div>
+  <div class="container page-todo bootstrap snippets bootdeys">
+    <div class="col-sm-7 tasks">
+      <div class="task-list">
+        <h1></h1>
+        <div class="priority high">
+          <span>High Priority</span>
+          <ul class="task-container high"></ul>
+        </div>
+
+        <div class="priority medium">
+          <span>Medium Priority</span>
+          <ul class="task-container medium"></ul>
+        </div>
+
+        <div class="priority low">
+          <span>Low Priority</span>
+          <ul class="task-container low"></ul>
+        </div>
+
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Custom JS -->
+  <script src="../js/app.js"></script>
+  <script src="../js/bootstrap.bundle.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootlint/1.1.0/bootlint.min.js"></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
+
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+
+    import { getDatabase, ref, push, onValue, set, remove, get } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
+
+    import { update } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
+
+    import { getAuth, setPersistence, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+    //Call the functions upon loading
+
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyCs8oBGLtVvXqX6A4vxOLD4c5ceBQcHYyA",
+      authDomain: "listly-to-do-list-app-7a80c.firebaseapp.com",
+      databaseURL: "https://listly-to-do-list-app-7a80c-default-rtdb.firebaseio.com",
+      projectId: "listly-to-do-list-app-7a80c",
+      storageBucket: "listly-to-do-list-app-7a80c.appspot.com",
+      messagingSenderId: "426555485808",
+      appId: "1:426555485808:web:3be48d388f62d663434eb5"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const auth = getAuth();
+
+    const uid = sessionStorage.getItem("userID");
+
+    ///////////////////////////////////Side Bar//////////////////////////////////
+
+    //retrieval and calculation of data
+    function getData(location) {
+      return new Promise((resolve, reject) => {
+        const uid = sessionStorage.getItem("userID");
+
+        const tasksReference = ref(database, 'tasks/' + uid + location);
+        onValue(tasksReference, (snapshot) => {
+          const data = snapshot.val();
+          const length = Object.keys(data).length;
+          resolve({ data, length }); // Resolve the promise with the retrieved data
+        }, (error) => {
+          reject(error); // Reject the promise if there's an error
+        });
+      });
+    }
+
+    function reminderDateCheck(priority, dueDate) {
+
+      const today = new Date();
+      const formattedCompletionDate = today.toISOString().split("T")[0];
+
+      // Convert dueDate to a Date object
+      const dueDateObj = new Date(dueDate);
+
+      // Calculate the time difference in milliseconds
+      const timeDifference = (dueDateObj.getTime() - new Date(formattedCompletionDate).getTime());
+
+      // Calculate the number of days
+      const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+
+      console.log(daysDifference);
+
+      if (priority === 'high' && daysDifference <= 4 && daysDifference >= 0) {
+        return true;
+      } else if (priority === 'medium' && daysDifference <= 3 && daysDifference >= 0) {
+        return true;
+      } else if (priority === 'low' && daysDifference <= 2 && daysDifference >= 0) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    var totalReminderTasks = 0;
+    function populateSidebar(category) {
+
+      getData('/' + category).then(({ data, length }) => {
+
+        const allTasks = Object.values(data);
+        console.log(allTasks);
+        for (const task of allTasks) {
+          // const taskPriority = task.TaskPriority;
+          // const taskTitle = task.TaskTitle;
+          // const taskDescription = task.TaskDescription;
+          // const taskDueDate = task.DueDate;
+          var shouldRemind = reminderDateCheck(task.TaskPriority, task.DueDate);
+
+          if (shouldRemind) {
+            totalReminderTasks++;
+            var tasksElement = document.createElement("div");
+            tasksElement.setAttribute("class", 'row mb-2');
+            if (task.TaskPriority === 'high') {
+              tasksElement.innerHTML = `
+        
+        <div class="row">
+<div class="col">
+  
+  <div class="card text-white bg-danger">
+<div class="card-header">
+  ${task.DueDate}  (${task.TaskPriority})
+</div>
+<div class="card-body">
+  <h4 class="card-title">${task.TaskTitle}</h4>
+  <h6 class="card-text">${task.TaskDescription}</h6>
+  
+  
+</div>
+</div>
+</div>
+</div>
+                
+
+`;
+            } else if (task.TaskPriority === 'medium') {
+              tasksElement.innerHTML = `
+        
+        <div class="row">
+<div class="col">
+  
+  <div class="card text-white bg-warning">
+<div class="card-header">
+  ${task.DueDate}  (${task.TaskPriority})
+</div>
+<div class="card-body">
+  <h4 class="card-title">${task.TaskTitle}</h4>
+  <h6 class="card-text">${task.TaskDescription}</h6>
+  
+  
+</div>
+</div>
+</div>
+</div>
+                
+
+`;
+            } else if (task.TaskPriority === 'low') {
+              tasksElement.innerHTML = `
+        
+        <div class="row">
+<div class="col">
+  
+  <div class="card text-white bg-success">
+<div class="card-header">
+  ${task.DueDate}  (${task.TaskPriority})
+</div>
+<div class="card-body">
+  <h4 class="card-title">${task.TaskTitle}</h4>
+  <h6 class="card-text">${task.TaskDescription}</h6>
+  
+  
+</div>
+</div>
+</div>
+</div>
+                
+
+`;
+            }
+            var sideBarList = document.getElementById("sideBarList");
+            sideBarList.appendChild(tasksElement);
+          }
+        }
+        document.getElementById('notificationCount').innerText = totalReminderTasks;
+        sessionStorage.setItem('notification', totalReminderTasks);
+
+      }).catch((error) => {
+        // Handle any errors that occurred
+        console.log(error);
+      });
+
+
+
+    }
+
+
+
+
+    populateSidebar('inProgress');
+    populateSidebar('todo');
+
+
+
+
+
+
+    ////////////////////////////////////////////////////////////////////////
+    // Reference the tasks in Firebase
+    const todoTasksRef = ref(database, 'tasks/' + uid + '/todo/');
+    const inProgressTasksRef = ref(database, 'tasks/' + uid + '/inProgress/');
+
+    const sortOrderSelect = document.getElementById('sortOrder');
+    const taskListContainer = document.querySelector('.task-list');
+
+    // Retrieve the tasks data from Firebase
+    Promise.all([get(todoTasksRef), get(inProgressTasksRef)])
+      .then((snapshots) => {
+        const todoSnapshot = snapshots[0];
+        const inProgressSnapshot = snapshots[1];
+
+        const todoTasks = todoSnapshot.exists() ? todoSnapshot.val() : {};
+        const inProgressTasks = inProgressSnapshot.exists() ? inProgressSnapshot.val() : {};
+
+        // Combine the tasks from both paths
+        const allTasks = { ...todoTasks, ...inProgressTasks };
+
+        // Display the tasks on the page based on priority and current sort order
+        displayTasksByPriority(allTasks);
+      })
+      .catch((error) => {
+        console.error("Error retrieving tasks:", error);
+      });
+
+    // Create a task element based on task data
+    function createTaskElement(task) {
+      const taskElement = document.createElement("div");
+      taskElement.classList.add("task");
+      taskElement.classList.add(task.TaskPriority);
+      taskElement.innerHTML = `
+    <div class="desc">
+      <div class="title">${task.TaskTitle}</div>
+      <div class="description">${task.TaskDescription}</div>
+    </div>
+    <div class="time">
+      <div class="date" id="duedate">${task.DueDate}</div>
+    </div>
+  `;
+      return taskElement;
+    }
+
+    // Display the tasks on the page based on priority and current sort order
+    function displayTasksByPriority(allTasks) {
+      // Clear existing tasks and priority containers
+      taskListContainer.innerHTML = '';
+
+      // Create priority containers
+      const priorities = ['high', 'medium', 'low'];
+      for (const priority of priorities) {
+        const priorityContainer = document.createElement('div');
+        priorityContainer.classList.add('priority', priority);
+
+        const span = document.createElement('span');
+        span.textContent = getPriorityLabel(priority);
+
+        const taskContainer = document.createElement('ul');
+        taskContainer.classList.add('task-container', priority);
+
+        priorityContainer.appendChild(span);
+        priorityContainer.appendChild(taskContainer);
+        taskListContainer.appendChild(priorityContainer);
+      }
+
+      // Sort tasks based on the current sort order
+      const sortedTasks = sortTasks(Object.values(allTasks), sortOrderSelect.value);
+
+      // Add tasks to their respective priority containers
+      for (const task of sortedTasks) {
+        const taskElement = createTaskElement(task);
+        const priorityContainer = taskListContainer.querySelector(`.priority.${task.TaskPriority}`);
+        const taskContainer = priorityContainer.querySelector(`.task-container.${task.TaskPriority}`);
+        taskContainer.appendChild(taskElement);
+      }
+    }
+
+    // Sort tasks based on due date and sort order
+    function sortTasks(tasks, sortOrder) {
+      if (sortOrder === 'asc') {
+        return tasks.sort((a, b) => new Date(a.DueDate) - new Date(b.DueDate));
+      } else if (sortOrder === 'desc') {
+        return tasks.sort((a, b) => new Date(b.DueDate) - new Date(a.DueDate));
+      } else {
+        return tasks; // Return tasks in their original order
+      }
+    }
+
+    // Get priority label based on priority value
+    function getPriorityLabel(priority) {
+      switch (priority) {
+        case 'high':
+          return 'High Priority';
+        case 'medium':
+          return 'Medium Priority';
+        case 'low':
+          return 'Low Priority';
+        default:
+          return '';
+      }
+    }
+
+    // Add an event listener to the sort order dropdown
+    sortOrderSelect.addEventListener('change', () => {
+      // Retrieve the tasks data from Firebase and display the tasks based on the new sort order
+      Promise.all([get(todoTasksRef), get(inProgressTasksRef)])
+        .then((snapshots) => {
+          const todoSnapshot = snapshots[0];
+          const inProgressSnapshot = snapshots[1];
+
+          const todoTasks = todoSnapshot.exists() ? todoSnapshot.val() : {};
+          const inProgressTasks = inProgressSnapshot.exists() ? inProgressSnapshot.val() : {};
+
+          // Combine the tasks from both paths
+          const allTasks = { ...todoTasks, ...inProgressTasks };
+
+          // Display the tasks on the page based on priority and updated sort order
+          displayTasksByPriority(allTasks);
+        })
+        .catch((error) => {
+          console.error("Error retrieving tasks:", error);
+        });
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // Get the logout link element
+    const logoutLink = document.getElementById('logOut');
+
+    // Add a click event listener
+    logoutLink.addEventListener('click', function (e) {
+      e.preventDefault(); // Prevent the default link behavior
+
+      // Clear the session or perform any necessary logout-related tasks here
+      sessionStorage.clear();
+      // Run the signOut function from Firebase
+      auth.signOut().then(function () {
+        // After successful sign out, navigate to the landing page
+
+        window.location.href = 'landingPage.html';
+      }).catch(function (error) {
+        console.error('Error signing out:', error);
+      });
+    });
+  </script>
+
+  <script>
+    let selectedSortOption = '';
+
+    function toggleDropdown() {
+      const dropdownContent = document.getElementById('dropdownContent');
+      dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function selectOption(option) {
+      currentSortOption = option;
+      sortTasks();
+    }
+
+    function sortTasks() {
+      const taskList = document.getElementById('taskList');
+      const tasks = Array.from(taskList.getElementsByClassName('task'));
+
+      // Sort the tasks based on the selected option
+      if (currentSortOption === 'Ascending') {
+        tasks.sort((a, b) => {
+          const aDueDate = new Date(a.querySelector('.date').textContent);
+          const bDueDate = new Date(b.querySelector('.date').textContent);
+          return aDueDate - bDueDate;
+        });
+      } else if (currentSortOption === 'Descending') {
+        tasks.sort((a, b) => {
+          const aDueDate = new Date(a.querySelector('.date').textContent);
+          const bDueDate = new Date(b.querySelector('.date').textContent);
+          return bDueDate - aDueDate;
+        });
+      }
+
+      // Append the sorted tasks back to the task list
+      tasks.forEach(task => {
+        taskList.appendChild(task);
+      });
+    }
+
+    // Display the tasks on the page based on priority
+    for (const taskId in allTasks) {
+      const task = allTasks[taskId];
+      const taskElement = createTaskElement(task);
+
+      // Determine the priority container to append the task
+      const priorityContainer = document.querySelector(`.priority.${task.TaskPriority}`);
+
+      // Append the task to the respective priority container
+      priorityContainer.appendChild(taskElement);
+    }
+
+    // Sort the tasks based on the selected option
+    sortTasks();
+
+
+
+
+        // Function to perform the sorting based on the selected option
+        // function performSorting() {
+        //     // Sort the tasks based on the selectedSortOption
+        //     // Implementation goes here
+        // }
+
+
+
+
+
+  </script>
+
+
+</body>
+
+</html>

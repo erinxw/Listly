@@ -1,0 +1,483 @@
+<!-- this is the markup. you can change the details (your own name, your own avatar etc.) but don’t change the basic structure! -->
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../css/notificationForProfile.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link rel="icon" href="../assets/images/logo.png">
+    <link rel="stylesheet" href="../css/profile.css">
+    <script>
+
+        if (sessionStorage.getItem("isLoggedIn") == "true") {
+
+
+        } else {
+            sessionStorage.clear();
+
+            window.location.href = 'login.html';
+
+
+        }
+    </script>
+
+</head>
+
+<body>
+    <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand fs-2 fw-bold" href="home.html">
+                <img src="../assets/images/logo.png" alt="" width="50" height="50"
+                    class="d-inline-block align-text-center" style="padding: 5px;">
+                Listly</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 w-100">
+                    <li class="nav-item">
+                        <a class="nav-link " aria-current="page" href="home.html">Home</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="viewTaskProgress.html">Tasks</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="priority.html">Priority</a>
+                    </li>
+
+                    <li class="nav-item ms-lg-auto">
+
+
+
+
+
+                        <button type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+                            aria-controls="offcanvasRight"
+                            class="icon-button align-text-center d-inline-block me-2 mt-2">
+                            <span class="material-icons bellButton">notifications</span>
+                            <span class="icon-button__badge" id="notificationCount"></span>
+                        </button>
+
+
+                    </li>
+                    <li class="nav-item  dropdown">
+                        <a class="nav-link dropdown-toggle active " href="#" role="button" id="navbarDropdownMenuLink"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="../assets/images/profile_icon.png" alt="Profile" width="30" height="30"
+                                class="d-inline-block align-text-center me-2">
+                            My Profile
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="profile.html">View Profile</a></li>
+                            <li><a class="dropdown-item" id="logOut">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+    </nav>
+
+    <div class="pageContent">
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasRightLabel">Reminder Notifications</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+
+                <div class="list-group list-group-flush" style="max-height: 100vh; overflow-y: auto;">
+                    <div class="list-group-item " id="sideBarList">
+                        <!-- <div class="row mb-4 border">
+                    <div class="col">
+                      <strong>Item 1 Title:</strong> Lorem ipsum dolor sit amet
+                    </div>
+                    <div class="col">
+                      <strong>Item 1 Description:</strong> Consectetur adipiscing elit
+                    </div>
+                    <div class="col">
+                      <strong>Priority:</strong> High
+                    </div>
+                    <div class="col">
+                      <strong>Due Date:</strong> 2023-06-17
+                    </div>
+                  </div> -->
+                    </div>
+                    <!-- Add more list items as needed -->
+                </div>
+            </div>
+        </div>
+        <div id="gradient"></div>
+        <div id="card">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col" rowspan="2"><img id="profilePicture"
+                                src="https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg"
+                                alt="Profile Image" class="img-fluid" width="100" height="100"></th>
+
+                        <th scope="col" colspan="2" class="title">Profile Information</th>
+
+                    </tr>
+
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Name:</td>
+                        <td id="nameTD">Surenthar</td>
+
+                    </tr>
+                    <tr>
+                        <td>Email:</td>
+
+                        <td id="emailTD">surenthar.rajamohan@yahoo.com</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" id="editProfileBTN" class="profile-edit-btn"> <button name="btnAddMore">Edit
+                                Profile</button></td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</body>
+
+<div id="preloader"></div>
+
+<script src="../js/bootstrap.bundle.js"></script>
+
+<script>
+    document.getElementById("editProfileBTN").addEventListener("click", function (e) {
+        // Prevent the default action of the button
+        e.preventDefault();
+
+        // Change the current URL to the new page
+        window.location.href = "editProfile.html";
+    });
+</script>
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+    import { getStorage, ref as storageRefImport, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js";
+
+
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyCs8oBGLtVvXqX6A4vxOLD4c5ceBQcHYyA",
+        authDomain: "listly-to-do-list-app-7a80c.firebaseapp.com",
+        databaseURL: "https://listly-to-do-list-app-7a80c-default-rtdb.firebaseio.com",
+        projectId: "listly-to-do-list-app-7a80c",
+        storageBucket: "listly-to-do-list-app-7a80c.appspot.com",
+        messagingSenderId: "426555485808",
+        appId: "1:426555485808:web:3be48d388f62d663434eb5"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const auth = getAuth();
+    const storage = getStorage();
+
+
+    ///////////////////////////////////Side Bar//////////////////////////////////
+
+    //retrieval and calculation of data
+    function getData(location) {
+        return new Promise((resolve, reject) => {
+            const uid = sessionStorage.getItem("userID");
+
+            const tasksReference = ref(database, 'tasks/' + uid + location);
+            onValue(tasksReference, (snapshot) => {
+                const data = snapshot.val();
+                const length = Object.keys(data).length;
+                resolve({ data, length }); // Resolve the promise with the retrieved data
+            }, (error) => {
+                reject(error); // Reject the promise if there's an error
+            });
+        });
+    }
+
+    function reminderDateCheck(priority, dueDate) {
+
+        const today = new Date();
+        const formattedCompletionDate = today.toISOString().split("T")[0];
+
+        // Convert dueDate to a Date object
+        const dueDateObj = new Date(dueDate);
+
+        // Calculate the time difference in milliseconds
+        const timeDifference = (dueDateObj.getTime() - new Date(formattedCompletionDate).getTime());
+
+        // Calculate the number of days
+        const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+
+        console.log(daysDifference);
+
+        if (priority === 'high' && daysDifference <= 4 && daysDifference >= 0) {
+            return true;
+        } else if (priority === 'medium' && daysDifference <= 3 && daysDifference >= 0) {
+            return true;
+        } else if (priority === 'low' && daysDifference <= 2 && daysDifference >= 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    var totalReminderTasks = 0;
+    function populateSidebar(category) {
+
+        getData('/' + category).then(({ data, length }) => {
+
+            const allTasks = Object.values(data);
+            console.log(allTasks);
+            for (const task of allTasks) {
+                // const taskPriority = task.TaskPriority;
+                // const taskTitle = task.TaskTitle;
+                // const taskDescription = task.TaskDescription;
+                // const taskDueDate = task.DueDate;
+                var shouldRemind = reminderDateCheck(task.TaskPriority, task.DueDate);
+
+                if (shouldRemind) {
+                    totalReminderTasks++;
+                    var tasksElement = document.createElement("div");
+                    tasksElement.setAttribute("class", 'row mb-2');
+                    if (task.TaskPriority === 'high') {
+                        tasksElement.innerHTML = `
+        
+        <div class="row">
+<div class="col">
+  
+  <div class="card text-white bg-danger">
+<div class="card-header">
+  ${task.DueDate}  (${task.TaskPriority})
+</div>
+<div class="card-body">
+  <h4 class="card-title">${task.TaskTitle}</h4>
+  <h6 class="card-text">${task.TaskDescription}</h6>
+  
+  
+</div>
+</div>
+</div>
+</div>
+                
+
+`;
+                    } else if (task.TaskPriority === 'medium') {
+                        tasksElement.innerHTML = `
+        
+        <div class="row">
+<div class="col">
+  
+  <div class="card text-white bg-warning">
+<div class="card-header">
+  ${task.DueDate}  (${task.TaskPriority})
+</div>
+<div class="card-body">
+  <h4 class="card-title">${task.TaskTitle}</h4>
+  <h6 class="card-text">${task.TaskDescription}</h6>
+  
+  
+</div>
+</div>
+</div>
+</div>
+                
+
+`;
+                    } else if (task.TaskPriority === 'low') {
+                        tasksElement.innerHTML = `
+        
+        <div class="row">
+<div class="col">
+  
+  <div class="card text-white bg-success">
+<div class="card-header">
+  ${task.DueDate}  (${task.TaskPriority})
+</div>
+<div class="card-body">
+  <h4 class="card-title">${task.TaskTitle}</h4>
+  <h6 class="card-text">${task.TaskDescription}</h6>
+  
+  
+</div>
+</div>
+</div>
+</div>
+                
+
+`;
+                    }
+                    var sideBarList = document.getElementById("sideBarList");
+                    sideBarList.appendChild(tasksElement);
+                }
+            }
+            document.getElementById('notificationCount').innerText = totalReminderTasks;
+            sessionStorage.setItem('notification', totalReminderTasks);
+
+        }).catch((error) => {
+            // Handle any errors that occurred
+            console.log(error);
+        });
+
+
+
+    }
+
+
+
+
+    populateSidebar('inProgress');
+    populateSidebar('todo');
+
+
+
+
+
+
+    ////////////////////////////////////////////////////////////////////////
+
+    const user = auth.currentUser;
+
+
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            const uid = user.uid;
+            sessionStorage.setItem("userID", uid);
+
+
+            const firstNameRef = ref(database, 'users/' + uid + '/firstName');
+            const lastNameRef = ref(database, 'users/' + uid + '/lastName');
+            const emailRef = ref(database, 'users/' + uid + '/email');
+
+            const promises = [];
+
+            const firstNamePromise = new Promise((resolve) => {
+                onValue(firstNameRef, (snapshot) => {
+                    const fName = snapshot.val();
+                    sessionStorage.setItem("firstName", fName);
+                    resolve();
+                });
+            });
+            promises.push(firstNamePromise);
+
+            const lastNamePromise = new Promise((resolve) => {
+                onValue(lastNameRef, (snapshot) => {
+                    const lName = snapshot.val();
+                    sessionStorage.setItem("lastName", lName);
+                    resolve();
+                });
+            });
+            promises.push(lastNamePromise);
+
+            const emailPromise = new Promise((resolve) => {
+                onValue(emailRef, (snapshot) => {
+                    const email = snapshot.val();
+                    sessionStorage.setItem("email", email);
+                    resolve();
+                });
+            });
+            promises.push(emailPromise);
+
+            // Create a promise for retrieving the image URL
+            const imagePromise = new Promise((resolve) => {
+                // Create a reference to the image file
+                const imageRef = storageRefImport(storage, 'userProfilePicture/' + uid);
+
+                // Get the download URL of the image
+                getDownloadURL(imageRef)
+                    .then((url) => {
+                        // Resolve the promise with the image URL
+                        sessionStorage.setItem("imageURL", url);
+                        resolve(url);
+                    })
+                    .catch((error) => {
+                        const defaultImageUrl = 'https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg';
+                        sessionStorage.setItem("imageURL", defaultImageUrl);
+                        resolve(defaultImageUrl);
+                    });
+            });
+
+            // Add the image promise to the list of promises
+            promises.push(imagePromise);
+
+            Promise.all(promises)
+                .then(() => {
+                    let preloader = document.getElementById('preloader');
+
+
+
+
+
+                    // All promises resolved, now you can access the saved data
+                    const firstName = sessionStorage.getItem("firstName");
+                    const lastName = sessionStorage.getItem("lastName");
+                    const email = sessionStorage.getItem("email");
+                    const imageURL = sessionStorage.getItem("imageURL");
+
+                    var emailTD = document.getElementById('emailTD');
+                    var nameTD = document.getElementById('nameTD');
+                    var profilePicture = document.getElementById('profilePicture');
+
+                    emailTD.innerHTML = email;
+                    nameTD.innerHTML = firstName + " " + lastName;
+                    profilePicture.setAttribute('src', imageURL);
+
+                    preloader.remove();
+
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        } else {
+            // User is signed out
+            // ...
+
+            sessionStorage.setItem("userID", null);
+
+        }
+    });
+
+
+
+
+
+    // Get the logout link element
+    const logoutLink = document.getElementById('logOut');
+
+    // Add a click event listener
+    logoutLink.addEventListener('click', function (e) {
+        e.preventDefault(); // Prevent the default link behavior
+
+        // Clear the session or perform any necessary logout-related tasks here
+        sessionStorage.clear();
+        // Run the signOut function from Firebase
+        auth.signOut().then(function () {
+            // After successful sign out, navigate to the landing page
+
+            window.location.href = 'landingPage.html';
+        }).catch(function (error) {
+            console.error('Error signing out:', error);
+        });
+    });
+
+
+
+</script>
+
+</html>

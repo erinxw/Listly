@@ -1,0 +1,228 @@
+.completed {
+	text-decoration: line-through;
+	color: #a0aec0;
+  background-size: cover;
+  
+}
+
+#addTask{
+  position: absolute;
+  left: 45%;
+  transform: translateY(-1690%);
+  bottom: -115px;
+  z-index: 1;
+  background-color: #DAC09F;
+  border-color: black;
+  
+}
+
+.container.mt-5 {
+  height: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 2000px;
+  border-radius: 10px; /* adjust this value as needed */
+}
+
+.container {
+  height: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 2000px;
+  border-radius: 10px; /* adjust this value as needed */
+}
+
+
+h2{
+  color: azure;
+}
+
+body {
+  background-image: url('../assets/images/newBg.jpg');
+  background-repeat: no-repeat;
+    background-size: cover;
+ 
+}
+
+.list-group {
+  margin-top: 70px;
+  margin-bottom: 30px;
+}
+
+
+.form-row{
+ padding-top: 20px;
+}
+
+.col{
+  
+	margin-top: 20px;
+}
+
+
+.col2{
+	margin-top: 30px;
+}
+
+#add {
+  position: absolute;
+  left: 45%;
+  transform: translateY(-10%);
+  bottom: -25px;
+  z-index: 1;
+  
+}
+
+
+
+.logo {
+ position: absolute;
+width: 90px;
+height: 90px;
+left: auto;
+top: 2px;
+}
+
+
+#add {
+  position: absolute;
+  left: 65%;
+  transform: translateY(-1330%);
+  bottom: -25px;
+  z-index: 1;
+  background-color: black;
+  outline-color: azure;
+  
+}
+
+h1{
+  position: fixed;
+  padding-top: 20px;
+  padding-left:110px;
+  color: white;
+  font-weight:bold ;
+
+}
+
+
+
+.fall {
+  animation-name: fall;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fall {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+.row{
+  margin-top: 0px;
+}
+
+#task-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.task-name {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+.due-date {
+  margin-right: 100px;
+}
+
+
+.custom-select {
+	background-color: #DAC09F;
+	border-radius: 30px;
+	border-width: 0.005px;
+	margin: 10px;
+   
+  
+  }
+
+.view-opt-label {
+ left:10;
+  text-decoration: black;
+}
+
+
+/* Add styles for the modal overlay */
+#modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+/* Add styles for the modal container */
+#modal-container {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+/* Edit task input fields and button */
+#modal-container input {
+
+  margin-left: 50px;
+}
+
+#modal-container button {
+  margin-top: 10px;
+}
+
+/* Add styles for the modal title and label */
+#modal-container h2 {
+  margin-top: 0;
+}
+
+#modal-container label {
+  display: block;
+  margin-bottom: 30px;
+}
+
+.edit-form {
+  background-color: #dbC0ab;
+  border: 1px solid black;
+}
+
+#addTask:hover { 
+  background-color: #38210F;
+}
+
+
+#in-progress-list li{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+
+#complete-list li{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In Form</title>
+    <link rel="stylesheet" href="../css/login.css">
+    <link rel="icon" href="../assets/images/logo.png">
+    <link rel="stylesheet" href="../css/bootstrap.css">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" />
+    <script type="module" src="../js/login.js"></script>
+</head>
+</head>
+
+
+
+<!-- Section: Design Block -->
+
+<body>
+    <section class="background-radial-gradient">
+
+
+        <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
+            <div class="row gx-lg-5 align-items-center mb-5">
+                <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
+                    <img src="../assets/images/logo.png" height="30%" width="30%">
+                    <h1 class="my-5 display-5 fw-bold ls-tight"
+                        style="color: hsl(218, 81%, 95%); font-family: cursive;">
+                        L I S T L Y<br />
+                        <span style="color: #634932;">To-Do List</span>
+
+                    </h1>
+                    <p class="mb-4 opacity-70" style="color: #634932">
+                        Welcome to our to do list
+                    </p>
+                </div>
+
+                <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
+                    <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
+                    <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
+
+                    <div class="card bg-glass">
+                        <div class="card-body px-4 py-5 px-md-5">
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="firstName"
+                                            style="width: 100%; text-align: start; color: #ffffff;">First name</label>
+                                        <input type="text" id="firstName" class="form-control" />
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="lastName"
+                                            style="width: 100%; text-align: start; color: #ffffff;">Last name</label>
+                                        <input type="text" id="lastName" class="form-control" />
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Email input -->
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="email"
+                                    style="width: 100%; text-align: start; color: #ffffff;">Email
+                                    address</label>
+                                <input type="email" id="email" class="form-control" />
+
+                            </div>
+
+                            <!-- Password input -->
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="password"
+                                    style="width: 100%; text-align: start; color: #ffffff;">Password</label>
+                                <input type="password" id="password" class="form-control" />
+
+                            </div>
+
+                            <!-- Password input -->
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="confirmPassword"
+                                    style="width: 100%; text-align: start; color: #ffffff;">Confirm Password</label>
+                                <input type="password" id="confirmPassword" class="form-control" />
+
+                            </div>
+
+
+
+                            <!-- Submit button type="submit"-->
+                            <button id="signUp" class="btn btn-primary btn-block mb-4"
+                                style="width: 100%; margin-top: 5%; background-color: #ECE0D0; border-color: #634932; color: #634932;">
+                                Sign up
+                            </button>
+
+                            <!-- Checkbox -->
+                            <div class="form-check d-flex justify-content-center mb-4">
+                                <label class="form-check-label" for="form2Example33" style="color: #ffffff;">
+                                    Already an existing user? <a href="login.html" style=" color: #ECE0D0;">Login</a>
+                                </label>
+                            </div>
+
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Section: Design Block -->
+
+</body>
+
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+    import { getDatabase, set, ref } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyCs8oBGLtVvXqX6A4vxOLD4c5ceBQcHYyA",
+        authDomain: "listly-to-do-list-app-7a80c.firebaseapp.com",
+        databaseURL: "https://listly-to-do-list-app-7a80c-default-rtdb.firebaseio.com",
+        projectId: "listly-to-do-list-app-7a80c",
+        storageBucket: "listly-to-do-list-app-7a80c.appspot.com",
+        messagingSenderId: "426555485808",
+        appId: "1:426555485808:web:3be48d388f62d663434eb5"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const auth = getAuth();
+
+    // Function to check if all required fields are filled
+    function areAllFieldsFilled() {
+        var firstName = document.getElementById('firstName').value;
+        var lastName = document.getElementById('lastName').value;
+        var email = document.getElementById('email').value;
+        var password = document.getElementById('password').value;
+        var confirmPassword = document.getElementById('confirmPassword').value;
+
+        if(firstName == "" || lastName == "" || email == "" || password == "" || confirmPassword == ""){
+            alert("Please fill in all fields");
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    function matchingPassword(){
+        var password = document.getElementById('password').value;
+        var confirmPassword = document.getElementById('confirmPassword').value;
+
+        if(password != confirmPassword){
+            alert("Passwords do not match");
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+
+    signUp.addEventListener('click', (e) => {
+       var filledUp =  areAllFieldsFilled();
+       var matchingPasswordDone = matchingPassword();
+       
+        if( filledUp && matchingPasswordDone){
+
+        var firstName = document.getElementById('firstName').value;
+        var lastName = document.getElementById('lastName').value;
+        var email = document.getElementById('email').value;
+        var password = document.getElementById('password').value;
+
+        createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                // Signed in 
+                const user = userCredential.user;
+
+                const date = new Date().toISOString();
+
+                set(ref(database, 'users/' + user.uid), {
+                    id: user.uid,
+                    dateCreated: date,
+                    firstName: firstName,
+                    lastName: lastName,
+                    email: email,
+
+                }).then(() => {
+                    
+                    alert('User signed in');
+                window.location.href = "login.html";
+                })
+                    .catch((error) => {
+                        alert("Error setting user data:", error);
+                    });
+
+                
+                // ...
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+
+                alert(errorMessage);
+                // ..
+            });}else{
+                alert("Please fill in all fields");
+            }
+
+    });
+
+</script>
+
+</html>

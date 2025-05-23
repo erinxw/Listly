@@ -1,0 +1,190 @@
+:root {
+    --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --bs-body-font-family: var(--bs-font-sans-serif);
+    --bs-body-font-size: 1rem;
+    --bs-body-font-weight: 400;
+    --bs-body-line-height: 1.5;
+    --bs-body-color: #212529;
+}
+
+body {
+    background-color: #dbc0ab;
+    font-family: var(--bs-body-font-family);
+    font-size: var(--bs-body-font-size);
+    font-weight: var(--bs-body-font-weight);
+    color: var(--bs-body-color);
+}
+
+h1 {
+    font-weight: lighter;
+    font-size: 26px;
+}
+
+.pageTitle {
+    margin-top: 60px;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+.boxes {
+    display: flex;
+}
+
+.categoryBox {
+    background-color: rgba(0,0,0, 0.5);
+    border-radius: 14px;
+    padding: 10px;
+    height: 425px;
+    margin: 0.7%;
+    flex: 1;
+    box-sizing: border-box;
+    height: fit-content;
+}
+
+.categoryTitle {
+    border-radius: 18px;
+    width: 78%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 25px;
+    margin-top: 15px;
+    padding-top: 2px;
+    padding-bottom: 5px;
+    font-weight: bold;
+}
+
+.taskBox {
+    background-color: #ece0d0;
+    border-radius: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    width: 98%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 10px;
+}
+
+.taskNameDateContainer {
+    display: flex;
+    align-items: center;
+}
+
+.task-image {
+    height: 25px;
+    padding-right: 7px;
+    padding-left: 15px;
+    margin-top: -10%;
+}
+
+.taskName {
+    margin-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    font-weight: 500;
+}
+
+.taskDate {
+    font-size: 14px;
+}
+
+.taskCheckbox {
+    float: right;
+    padding-right: 10px;
+}
+
+input[type="checkbox"] {
+    appearance: none;
+    width: 43px;
+    height: 35px;
+    background-color: #dbc0ab;
+    border-radius: 13px;
+}
+
+input[type="checkbox"]:checked {
+    background-color: #198754;
+}
+
+input[type="checkbox"]::before {
+    content: "\2713";
+    font-size: 25px;
+    color: #ffffff;
+    position: relative;
+    padding-left: 25%;
+    visibility: hidden;
+}
+
+input[type="checkbox"]:checked::before {
+    visibility: visible;
+}
+
+/* header {
+    background-color: #4A364D;
+    color: #FFFFFF;
+    width: 100%;
+    height: 50px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: inline-flex;
+}
+
+.icon {
+    margin-top: 5px;
+    height: 40px;
+}
+
+.listlyText {
+    margin-top: 0px;
+    margin-left: 20px;
+    padding-top: 5px;
+}
+
+.signUpLogIn {
+    font-family: 'Commissioner Thin';
+    font-weight: 100;
+    font-size: 17px;
+    padding-top: 15px;
+    padding-right: 70px;
+    position: absolute;
+    right: 0;
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+footer {
+    background-color: #4A364D;
+    color: #FFFFFF;
+    width: 100%;
+    height: 45px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.copyright {
+    font-family: 'Commissioner Thin';
+    font-weight: 100;
+    font-size: 15px;
+    padding-right: 35px;
+    margin-top: 15px;
+} */
+
+@media only screen and (max-width: 680px) {
+    .boxes {
+        flex-direction: column;
+        margin-bottom: 10%;
+    }
+
+    .categoryBox {
+        margin-right: 0;
+        margin-bottom: 20px;
+        min-height: fit-content;
+    }
+}

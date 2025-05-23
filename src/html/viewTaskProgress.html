@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initialscale=1">
+  <title>Task Progress</title>
+  <link rel="icon" href="../assets/images/logo.png">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
+
+  <link rel="stylesheet" type="text/css" href="../css/notificationBadge.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- Custom CSS  -->
+  <link rel="stylesheet" href="../css/pieChart.css">
+  <script>
+
+    if (sessionStorage.getItem("isLoggedIn") == "true") {
+
+
+    } else {
+      sessionStorage.clear();
+
+      window.location.href = 'login.html';
+
+
+    }
+  </script>
+
+</head>
+
+<body>
+
+  <!-- For Navbar -->
+  <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand fs-2 fw-bold" href="home.html">
+        <img src="../assets/images/logo.png" alt="" width="50" height="50" class="d-inline-block align-text-center"
+          style="padding: 5px;">
+        Listly</a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 w-100">
+          <li class="nav-item">
+            <a class="nav-link " aria-current="page" href="home.html">Home</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link active" href="viewTaskProgress.html">Tasks</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="priority.html">Priority</a>
+          </li>
+
+          <li class="nav-item ms-lg-auto">
+
+            <button type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+              aria-controls="offcanvasRight" class="icon-button align-text-center d-inline-block me-2 mt-2">
+              <span class="material-icons bellButton">notifications</span>
+              <span class="icon-button__badge" id="notificationCount"></span>
+            </button>
+
+
+          </li>
+          <li class="nav-item  dropdown">
+            <a class="nav-link dropdown-toggle " href="#" role="button" id="navbarDropdownMenuLink"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="../assets/images/profile_icon.png" alt="Profile" width="30" height="30"
+                class="d-inline-block align-text-center me-2">
+              My Profile
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <li><a class="dropdown-item" href="profile.html">View Profile</a></li>
+              <li><a class="dropdown-item" id="logOut">Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+  </nav>
+
+  <!-- PieChart -->
+
+
+  <br><br><br><br>
+
+  <section id="s-team" class="section">
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasRightLabel">Reminder Notifications</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+
+        <div class="list-group list-group-flush" style="max-height: 100vh; overflow-y: auto;">
+          <div class="list-group-item " id="sideBarList">
+            <!-- <div class="row mb-4 border">
+              <div class="col">
+                <strong>Item 1 Title:</strong> Lorem ipsum dolor sit amet
+              </div>
+              <div class="col">
+                <strong>Item 1 Description:</strong> Consectetur adipiscing elit
+              </div>
+              <div class="col">
+                <strong>Priority:</strong> High
+              </div>
+              <div class="col">
+                <strong>Due Date:</strong> 2023-06-17
+              </div>
+            </div> -->
+          </div>
+          <!-- Add more list items as needed -->
+        </div>
+      </div>
+    </div>
+
+    <div class="row m-1 p-3 px-5 justify-content-end">
+      <div class="col-auto d-flex align-items-center">
+        <label class="text-secondary my-2 pr-2 view-opt-label" style="color: #DAC09F;">Filter</label>
+        <select id="filterDropdown" class="custom-select custom-select-sm btn my-2">
+          <option class="Filter" value="deadline" selected>Deadline</option>
+          <option class="Filter" value="priority">Priority</option>
+
+        </select>
+      </div>
+      <div class="col-auto d-flex align-items-center px-1 pr-3">
+        <label class="text-secondary my-2 pr-2 view-opt-label">Time</label>
+        <select id="filterDay" class="custom-select custom-select-sm btn my-2">
+          <option value="1Week" selected>Within 1 week</option>
+          <option value="2Week">Within 2 Weeks</option>
+          <option value="AllTime">All</option>
+        </select>
+
+      </div>
+    </div>
+
+    <!-- Pie Chart-->
+    <div id="Deadline" class="FilterPieChart">
+      <div class="b-skills">
+        <div class="container">
+          <h2>Progress Report</h2>
+
+          <div class="row">
+            <div class="col-xs-12 col-sm-8 col-md-4">
+              <div class="skill-item center-block">
+                <div class="chart-container">
+                  <div id="P1" class="chart " data-percent="" data-bar-color="#00FF00">
+                    <span id="Pie1" class="percent" data-after="%"></span>
+                  </div>
+                </div>
+
+                <p class="Desc1">Tasks Completed On Time</p>
+              </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-8 col-md-4">
+              <div class="skill-item center-block">
+                <div class="chart-container">
+                  <div id="P2" class="chart " data-percent="" data-bar-color="#FFFF00">
+                    <span id="Pie2" class="percent" data-after="%"></span>
+                  </div>
+                </div>
+
+                <p class="Desc2">Undone Task</p>
+              </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-8 col-md-4">
+              <div class="skill-item center-block">
+                <div class="chart-container">
+                  <div id="P3" class="chart " data-percent="" data-bar-color="#FF0000">
+                    <span id="Pie3" class="percent" data-after="%"></span>
+                  </div>
+                </div>
+
+                <p class="Desc3">Delayed Tasks</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="preloader"></div>
+  </section>
+  </div>
+
+  <!-- Custom JS -->
+  <script src="../js/app.js"></script>
+  <script src="../js/bootstrap.bundle.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootlint/1.1.0/bootlint.min.js"></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+  <script src="../js/jquery-2.2.4.min.js"></script>
+  <script src="../js/jquery.appear.min.js"></script>
+  <script src="../js/jquery.easypiechart.min.js"></script>
+  <script>
+    'use strict';
+
+    var $window = $(window);
+
+    function run() {
+      var fName = arguments[0],
+        aArgs = Array.prototype.slice.call(arguments, 1);
+      try {
+        fName.apply(window, aArgs);
+      } catch (err) {
+
+      }
+    };
+
+    /* chart
+    ================================================== */
+    function _chart() {
+      $('.b-skills').appear(function () {
+        setTimeout(function () {
+          $('.chart').easyPieChart({
+            easing: 'easeOutElastic',
+            delay: 3000,
+            barColor: '#369670',
+            trackColor: '#fff',
+            scaleColor: false,
+            lineWidth: 21,
+            trackWidth: 21,
+            size: 250,
+            lineCap: 'round',
+            onStep: function (from, to, percent) {
+              this.el.children[0].innerHTML = Math.round(percent);
+            }
+          });
+        }, 150);
+      });
+    };
+
+
+    $(document).ready(function () {
+
+      run(_chart);
+
+
+    });
+
+  </script>
+
+
+  <!--THIS PART IS TO MANIPULATE THE ANIMATION AND PIE CHART DEPENDING ON THE VALUE WE PUT IN THEM-->
+  <script type="module">
+
+    // Imports for firebase
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+    import { getStorage, ref as storageRefImport, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js";
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyCs8oBGLtVvXqX6A4vxOLD4c5ceBQcHYyA",
+      authDomain: "listly-to-do-list-app-7a80c.firebaseapp.com",
+      databaseURL: "https://listly-to-do-list-app-7a80c-default-rtdb.firebaseio.com",
+      projectId: "listly-to-do-list-app-7a80c",
+      storageBucket: "listly-to-do-list-app-7a80c.appspot.com",
+      messagingSenderId: "426555485808",
+      appId: "1:426555485808:web:3be48d388f62d663434eb5"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const auth = getAuth();
+    const storage = getStorage();
+
+    const user = auth.currentUser;
+    const uid = sessionStorage.getItem("userID");
+
+
+    // Get the logout link element
+    const logoutLink = document.getElementById('logOut');
+
+    // Add a click event listener
+    logoutLink.addEventListener('click', function (e) {
+      e.preventDefault(); // Prevent the default link behavior
+
+      // Clear the session or perform any necessary logout-related tasks here
+      sessionStorage.clear();
+      // Run the signOut function from Firebase
+      auth.signOut().then(function () {
+        // After successful sign out, navigate to the landing page
+
+        window.location.href = 'landingPage.html';
+      }).catch(function (error) {
+        console.error('Error signing out:', error);
+      });
+    });
+
+    //retrieval and calculation of data
+    function getData(location) {
+      return new Promise((resolve, reject) => {
+        const tasksReference = ref(database, 'tasks/' + uid + location);
+        onValue(tasksReference, (snapshot) => {
+          const data = snapshot.val();
+          const length = Object.keys(data).length;
+          resolve({ data, length }); // Resolve the promise with the retrieved data
+        }, (error) => {
+          reject(error); // Reject the promise if there's an error
+        });
+      });
+    }
+
+    //data storage
+    let globalCounts = {
+      priorityAll: {
+        high: 0,
+        medium: 0,
+        low: 0
+      },
+      priorityOne: {
+        high: 0,
+        medium: 0,
+        low: 0
+      },
+      priorityTwo: {
+        high: 0,
+        medium: 0,
+        low: 0
+      }, deadlineAll: {
+        onTime: 0,
+        late: 0
+      }, deadlineOne: {
+        onTime: 0,
+        late: 0
+      }, deadlineTwo: {
+        onTime: 0,
+        late: 0
+      }
+    };
+
+    function checkDateDifference(completionDate) {
+      // Provided date
+      const providedDate = new Date(completionDate);
+
+      // Get today's date
+      const today = new Date();
+
+      // Calculate the time difference in milliseconds
+      const timeDifference = today.getTime() - providedDate.getTime();
+
+      // Calculate the number of weeks
+      const weeksDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24 * 7));
+
+
+      if (weeksDifference > 2) {
+        return 3;
+      } else if (weeksDifference > 1) {
+        return 2;
+      } else {
+        return 1;
+      }
+
+    }
+
+    function checkCompletionStatus(taskCompletionDate, taskDueDate) {
+
+      const date = new Date(taskCompletionDate);
+
+      // Get the date in YYYY-MM-DD format
+      const formattedCompletionDate = date.toISOString().split("T")[0];
+
+      // Compare the completion date with the start date
+      if (formattedCompletionDate <= taskDueDate) {
+        return true; // Completed on time
+      } else {
+        return false; // Not completed on time
+      }
+
+    }
+
+    // Usage:
+    getData('/complete')
+      .then(({ data, length }) => {
+        console.log(data);
+        //priority all counts
+        let allHighCount = 0;
+        let allMediumCount = 0;
+        let allLowCount = 0;
+
+
+        //priority 1 counts
+        let oneHighCount = 0;
+        let oneMediumCount = 0;
+        let oneLowCount = 0;
+
+
+        //priority 2 counts
+        let twoHighCount = 0;
+        let twoMediumCount = 0;
+        let twoLowCount = 0;
+
+        //deadaline all counts
+        let onTimeAll = 0;
+        let lateAll = 0;
+
+        //deadline 1 counts
+        let onTimeOne = 0;
+        let lateOne = 0;
+
+
+        //deadline 2 counts
+        let onTimeTwo = 0;
+        let lateTwo = 0;
+
+        const tasks = Object.values(data);
+
+
+        for (const task of tasks) {
+          const taskPriority = task.TaskPriority;
+          const taskCompletionDate = task.completedDate;
+          const taskDueDate = task.DueDate;
+
+          var dateDifference = checkDateDifference(taskCompletionDate);
+          var completedOnTime = checkCompletionStatus(taskCompletionDate, taskDueDate);
+
+          if (taskPriority === 'high') {
+            if (dateDifference === 1) {
+              allHighCount++;
+              oneHighCount++;
+              twoHighCount++;
+
+            } else if (dateDifference === 2) {
+              allHighCount++;
+              twoHighCount++;
+
+            } else if (dateDifference === 3) {
+              allHighCount++;
+
+            }
+          } else if (taskPriority === 'medium') {
+            if (dateDifference === 1) {
+              allMediumCount++;
+              oneMediumCount++;
+              twoMediumCount++;
+
+            } else if (dateDifference === 2) {
+              allMediumCount++;
+              twoMediumCount++;
+
+            } else if (dateDifference === 3) {
+              allMediumCount++;
+            }
+          } else if (taskPriority === 'low') {
+            if (dateDifference === 1) {
+              allLowCount++;
+              oneLowCount++;
+              twoLowCount++;
+            } else if (dateDifference === 2) {
+              allLowCount++;
+              twoLowCount++;
+            } else if (dateDifference === 3) {
+              allLowCount++;
+
+            }
+          }
+
+          if (completedOnTime) {
+            if (dateDifference === 1) {
+              onTimeAll++;
+              onTimeOne++;
+              onTimeTwo++;
+            } else if (dateDifference === 2) {
+              onTimeAll++;
+              onTimeTwo++;
+            } else if (dateDifference === 3) {
+              onTimeAll++;
+            }
+          } else {
+            if (dateDifference === 1) {
+              lateAll++;
+              lateOne++;
+              lateTwo++;
+            } else if (dateDifference === 2) {
+              lateAll++;
+              lateTwo++;
+            } else if (dateDifference === 3) {
+              lateAll++;
+            }
+          }
+
+        }
+
+        //All time priority
+        var totalAll = allHighCount + allMediumCount + allLowCount;
+        globalCounts.priorityAll.low = allLowCount / totalAll * 100;
+        globalCounts.priorityAll.medium = allMediumCount / totalAll * 100;
+        globalCounts.priorityAll.high = allHighCount / totalAll * 100;
+
+        //1 week priority
+        var totalOne = oneHighCount + oneMediumCount + oneLowCount;
+        globalCounts.priorityOne.low = oneLowCount / totalOne * 100;
+        globalCounts.priorityOne.medium = oneMediumCount / totalOne * 100;
+        globalCounts.priorityOne.high = oneHighCount / totalOne * 100;
+
+        //2 week priority
+        var totalTwo = twoHighCount + twoMediumCount + twoLowCount;
+        globalCounts.priorityTwo.low = twoLowCount / totalTwo * 100;
+        globalCounts.priorityTwo.medium = twoMediumCount / totalTwo * 100;
+        globalCounts.priorityTwo.high = twoHighCount / totalTwo * 100;
+
+        //All time deadline
+        var totalAllDeadline = onTimeAll + lateAll;
+        globalCounts.deadlineAll.onTime = onTimeAll / totalAllDeadline * 100;
+        globalCounts.deadlineAll.late = lateAll / totalAllDeadline * 100;
+
+        //1 week deadline
+        var totalOneDeadline = onTimeOne + lateOne;
+        globalCounts.deadlineOne.onTime = onTimeOne / totalOneDeadline * 100;
+        globalCounts.deadlineOne.late = lateOne / totalOneDeadline * 100;
+
+        //2 week deadline
+        var totalTwoDeadline = onTimeTwo + lateTwo;
+        globalCounts.deadlineTwo.onTime = onTimeTwo / totalTwoDeadline * 100;
+        globalCounts.deadlineTwo.late = lateTwo / totalTwoDeadline * 100;
+
+
+        // Update the values of the pie chart
+        var Initial1 = globalCounts.deadlineOne.onTime;  // Example value for "Tasks Completed On Time"
+
+        var Initial3 = globalCounts.deadlineOne.late;  // Example value for "Delayed Tasks"
+
+        var pie1Element = document.getElementById("P1");
+        var pie2Element = document.getElementById("P2");
+        var pie3Element = document.getElementById("P3");
+
+        pie1Element.setAttribute("data-percent", globalCounts.deadlineOne.onTime);
+        $('#P2').parent().parent().hide();
+        pie3Element.setAttribute("data-percent", globalCounts.deadlineOne.late);
+
+        var pie1PercentElement = document.getElementById("Pie1");
+        $('#P2').parent().parent().hide();
+        var pie3PercentElement = document.getElementById("Pie3");
+
+        $('#P1').data('easyPieChart').update(parseInt(globalCounts.deadlineOne.onTime));
+        $('#P3').data('easyPieChart').update(parseInt(globalCounts.deadlineOne.late));
+        pie1PercentElement.textContent = Initial1;
+        $('#P2').parent().parent().hide();
+        pie3PercentElement.textContent = Initial3;
+        populateSidebar('inProgress');
+        populateSidebar('todo');
+        preloader.remove();
+      })
+      .catch((error) => {
+        // Handle any errors that occurred
+        preloader.remove();
+      });
+
+    function reminderDateCheck(priority, dueDate) {
+
+      const today = new Date();
+      const formattedCompletionDate = today.toISOString().split("T")[0];
+
+      // Convert dueDate to a Date object
+      const dueDateObj = new Date(dueDate);
+
+      // Calculate the time difference in milliseconds
+      const timeDifference = (dueDateObj.getTime() - new Date(formattedCompletionDate).getTime());
+
+      // Calculate the number of days
+      const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+
+      console.log(daysDifference);
+
+      if (priority === 'high' && daysDifference <= 4 && daysDifference >= 0) {
+        return true;
+      } else if (priority === 'medium' && daysDifference <= 3 && daysDifference >= 0) {
+        return true;
+      } else if (priority === 'low' && daysDifference <= 2 && daysDifference >= 0) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    var totalReminderTasks = 0;
+    function populateSidebar(category) {
+
+      getData('/' + category).then(({ data, length }) => {
+
+        const allTasks = Object.values(data);
+        console.log(allTasks);
+        for (const task of allTasks) {
+          // const taskPriority = task.TaskPriority;
+          // const taskTitle = task.TaskTitle;
+          // const taskDescription = task.TaskDescription;
+          // const taskDueDate = task.DueDate;
+          var shouldRemind = reminderDateCheck(task.TaskPriority, task.DueDate);
+
+          if (shouldRemind) {
+            totalReminderTasks++;
+            var tasksElement = document.createElement("div");
+            tasksElement.setAttribute("class", 'row mb-2');
+            if (task.TaskPriority === 'high') {
+              tasksElement.innerHTML = `
+        
+                        <div class="row">
+                <div class="col">
+                  
+                  <div class="card text-white bg-danger">
+                <div class="card-header">
+                  ${task.DueDate}  (${task.TaskPriority})
+                </div>
+                <div class="card-body">
+                  <h4 class="card-title">${task.TaskTitle}</h4>
+                  <h6 class="card-text">${task.TaskDescription}</h6>
+                  
+                  
+                </div>
+                </div>
+                </div>
+                </div>
+                                
+
+                `;
+            } else if (task.TaskPriority === 'medium') {
+              tasksElement.innerHTML = `
+        
+                      <div class="row">
+              <div class="col">
+                
+                <div class="card text-white bg-warning">
+              <div class="card-header">
+                ${task.DueDate}  (${task.TaskPriority})
+              </div>
+              <div class="card-body">
+                <h4 class="card-title">${task.TaskTitle}</h4>
+                <h6 class="card-text">${task.TaskDescription}</h6>
+                
+                
+              </div>
+              </div>
+              </div>
+              </div>
+                `;
+            } else if (task.TaskPriority === 'low') {
+              tasksElement.innerHTML = `
+                        
+                        <div class="row">
+                <div class="col">
+                  
+                  <div class="card text-white bg-success">
+                <div class="card-header">
+                  ${task.DueDate}  (${task.TaskPriority})
+                </div>
+                <div class="card-body">
+                  <h4 class="card-title">${task.TaskTitle}</h4>
+                  <h6 class="card-text">${task.TaskDescription}</h6>
+                  
+                  
+                </div>
+                </div>
+                </div>
+                </div>
+                                
+
+                `;
+            }
+            var sideBarList = document.getElementById("sideBarList");
+            sideBarList.appendChild(tasksElement);
+          }
+        }
+        document.getElementById('notificationCount').innerText = totalReminderTasks;
+        sessionStorage.setItem('notification', totalReminderTasks);
+
+      }).catch((error) => {
+        // Handle any errors that occurred
+        console.log(error);
+      });
+    }
+
+    $(document).ready(function () {
+      $('#filterDropdown, #filterDay').change(function () { //TAKES VALUE OF OUR DROPDOWN BARS AND CREATES TWO VARIABLES dropdownValue and dayValue
+
+        var dropdownValue = $('#filterDropdown').val(); //values can either be "priority"(for Priority filter) or "deadline"(for Deadline filter) 
+        var dayValue = $('#filterDay').val(); //values can be "1Week","2Week" or "AllTime"
+
+
+
+        //To change the text under each Pie Chart according to filter
+        if (dropdownValue === "priority") {
+          $('.Desc1').text('High Priority');
+          $('.Desc2').text('Medium Priority');
+          $('.Desc3').text('Low Priority');
+        }
+        else if (dropdownValue === "deadline") {
+          $('.Desc1').text('Tasks Completed On Time');
+          $('.Desc2').text('Undone Tasks');
+          $('.Desc3').text('Delayed Tasks');
+        }
+
+        $('#P2').parent().parent().show();
+
+        // For Priority Filtered Pies
+        //Basically how each will work is that, when filter is priority and time you pick "Within 1 Week", itll show pie charts of total respective priorities
+        // within 1 week. Same goes for the 2 week in all time. Logically as you increase the time filter, percentage will increase.
+        if (dropdownValue === "priority" && dayValue === "1Week") {
+          /*First pie*/
+          $('#P1 .chart').attr('data-percent', globalCounts.priorityOne.low); //changes attribute according to the percent
+          $('#P1').data('easyPieChart').update(parseInt(globalCounts.priorityOne.low)); //update the animation to make it into the respective percentage
+
+          /*Second pie*/
+          $('#P2 .chart').attr('data-percent', globalCounts.priorityOne.medium);
+          $('#P2').data('easyPieChart').update(parseInt(globalCounts.priorityOne.medium)); //parseInt() TO CHANGE THE VALUE TO INTEGER AS THE INPUT ACCEPTED IS ONLY IN INT FORM
+
+          /*Third pie*/
+          $('#P3 .chart').attr('data-percent', globalCounts.priorityOne.high);
+          $('#P3').data('easyPieChart').update(parseInt(globalCounts.priorityOne.high));
+
+        }
+        else if (dropdownValue === "priority" && dayValue === "2Week") {
+          /*First pie*/
+          $('#P1').attr('data-percent', globalCounts.priorityTwo.high); //MAY REPLACE WITH VARIABLES AS THESE ARE JUST MOCK VALUES DURING DEVELOPMENT
+          $('#P1').data('easyPieChart').update(globalCounts.priorityTwo.high);
+
+          /*Second pie*/
+          $('#P2 .chart').attr('data-percent', globalCounts.priorityTwo.medium);
+          $('#P2').data('easyPieChart').update(parseInt(globalCounts.priorityTwo.medium));
+
+          /*Third pie*/
+          $('#P3 .chart').attr('data-percent', globalCounts.priorityTwo.low);
+          $('#P3').data('easyPieChart').update(parseInt(globalCounts.priorityTwo.low));
+        }
+        else if (dropdownValue === "priority" && dayValue === "AllTime") {
+          /*First pie*/
+          $('#P1').attr('data-percent', globalCounts.priorityAll.high);
+          $('#P1').data('easyPieChart').update(globalCounts.priorityAll.high);
+
+          /*Second pie*/
+          $('#P2 .chart').attr('data-percent', globalCounts.priorityAll.medium);
+          $('#P2').data('easyPieChart').update(parseInt(globalCounts.priorityAll.medium));
+
+          /*Third pie*/
+          $('#P3 .chart').attr('data-percent', globalCounts.priorityAll.low);
+          $('#P3').data('easyPieChart').update(parseInt(globalCounts.priorityAll.low));
+        }
+
+        // For Deadline Filtered Pies
+        else if (dropdownValue === "deadline" && dayValue === "1Week") {
+          /*First pie*/
+
+          $('#P1').attr('data-percent', globalCounts.deadlineOne.onTime);
+          $('#P1').data('easyPieChart').update(parseInt(globalCounts.deadlineOne.onTime));
+
+          /*Second pie*/
+          $('#P2').parent().parent().hide();
+
+          /*Third pie*/
+          $('#P3 .chart').attr('data-percent', globalCounts.deadlineOne.late);
+          $('#P3').data('easyPieChart').update(parseInt(globalCounts.deadlineOne.late));
+        }
+        else if (dropdownValue === "deadline" && dayValue === "2Week") {
+          /*First pie*/
+          $('#P1').attr('data-percent', globalCounts.deadlineTwo.onTime);
+          $('#P1').data('easyPieChart').update(globalCounts.deadlineTwo.onTime);
+
+          /*Second pie*/
+          $('#P2').parent().parent().hide();
+
+          /*Third pie*/
+          $('#P3 .chart').attr('data-percent', globalCounts.deadlineTwo.late);
+          $('#P3').data('easyPieChart').update(parseInt(globalCounts.deadlineTwo.late));
+        }
+        else if (dropdownValue === "deadline" && dayValue === "AllTime") {
+          /*First pie*/
+          $('#P1').attr('data-percent', globalCounts.deadlineAll.onTime);
+          $('#P1').data('easyPieChart').update(globalCounts.deadlineAll.onTime);
+
+          /*Second pie*/
+          $('#P2').parent().parent().hide();
+
+          /*Third pie*/
+          $('#P3 .chart').attr('data-percent', globalCounts.deadlineAll.late);
+          $('#P3').data('easyPieChart').update(parseInt(globalCounts.deadlineAll.late));
+        }
+
+
+      });
+
+      // Trigger the change event manually to run the code when the page loads
+      //$('#filterDropdown, #filterDay').trigger('change');
+
+    });
+
+
+  </script>
+  <script>
+
+  </script>
+</body>
+
+</html>
+<script>preloader.remove();</script>

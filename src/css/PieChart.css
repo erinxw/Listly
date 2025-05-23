@@ -1,0 +1,148 @@
+     
+.b-skills
+{
+    /* border-top: 1px solid #DAC09F; */
+	padding-top: 46px;
+	text-align: center;
+}
+
+.b-skills:last-child { margin-bottom: -30px; }
+
+.b-skills h2 { 
+    margin-bottom: 50px; 
+    font-weight: 900; 
+    text-transform: uppercase; 
+    color: #DAC09F;
+}
+
+
+.skill-item
+{
+	position: relative;
+	max-width: 250px;
+	width: 100%;
+	margin-bottom: 30px;
+    margin-left: 70px;
+	color: #DAC09F;
+}
+
+body {
+    background-image: url('../assets/images/newBg.jpg');
+	background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+.chart-container
+{
+	position: relative;
+	width: 100%;
+	height: 0;
+	padding-top: 100%;
+	margin-bottom: 27px;
+}
+
+.skill-item .chart,
+.skill-item .chart canvas
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100% !important;
+	height: 100% !important;
+}
+
+.skill-item .chart:before
+{
+	content: "";
+	width: 0;
+	height: 100%;
+}
+
+.skill-item .chart:before,
+.skill-item .percent
+{
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.skill-item .percent
+{
+	position: relative;
+	line-height: 1;
+	font-size: 40px;
+	font-weight: 900;
+	z-index: 2;
+}
+
+.skill-item  .percent:after
+{
+	content: attr(data-after);
+	font-size: 20px;
+}
+       
+p{
+           font-weight: 900;
+   }
+ 
+   .custom-select {
+	background-color: #DAC09F;
+	border-radius: 30px;
+	border-width: 0.005px;
+	margin: 10px;
+   
+  
+  }
+
+  label {
+	color: #DAC09F;
+  }
+
+  #Priority{
+	display: none;
+  }
+
+  .center-align {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+  }
+
+  
+/*--------------------------------------------------------------
+# Preloader
+--------------------------------------------------------------*/
+#preloader {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 9999;
+	overflow: hidden;
+	background: #967258;
+  }
+  
+  #preloader:before {
+	content: "";
+	position: fixed;
+	top: calc(50% - 30px);
+	left: calc(50% - 30px);
+	border: 6px solid #ECE0D0;
+	border-top-color: #967258;
+	border-bottom-color: #967258;
+	border-radius: 50%;
+	width: 60px;
+	height: 60px;
+	animation: animate-preloader 1s linear infinite;
+  }
+  
+  @keyframes animate-preloader {
+	0% {
+	  transform: rotate(0deg);
+	}
+  
+	100% {
+	  transform: rotate(360deg);
+	}
+  }
+  

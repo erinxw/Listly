@@ -1,0 +1,119 @@
+*{
+    margin: 0;
+    padding: 0;
+    /* font-family:Georgia, 'Times New Roman', Times, serif; */
+    box-sizing:content-box;
+}
+.container{
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #BF9696,#BF9696);
+    padding: 10px;
+}
+.header{
+    width: 100%;
+    background: #4A364D;
+    margin-bottom: auto;
+}
+.header h2{
+    color: white;
+    display: flex;
+    align-items: center;
+    margin-bottom:40px;
+}
+
+.header h2 img{
+    width: 70px;
+    margin-left: 20px;
+    
+}
+.footer{
+    width: 100%;
+    background: #4A364D;
+    margin-top: auto;
+    
+}
+.footer h2{
+    color: white;
+    display: flex;
+    align-items: center;
+    margin-top:30px;
+}
+.footer h5{
+    color: white;
+    display:flex;
+    align-items: center;
+    margin-left:75% ;
+}
+
+.title{
+    text-align: center;
+}
+
+
+.categoryBox {
+    background-color: #4A364D;
+    display: inline-table;
+    border-radius: 30px;
+    width: 98%;
+    height: 440px;
+    margin: 1%;
+    margin-bottom: 80px;
+    overflow: scroll;
+}
+
+.taskBox {
+    background-color: #FFFFFF;
+    border-radius: 25px;
+    display: inline-flex;
+    text-align: left;
+    width: 98%;
+    height: 100px;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    margin-left: 1%;
+    overflow: auto;
+}
+
+.dateTime {
+    font-size: 15px;
+    padding-left: 20px;
+}
+
+.checklist {
+    position: absolute;
+    align-items: center;
+    display: flex;
+    margin-top: 20px;
+    margin-left: 1300px;
+}
+
+.taskName {
+    margin-top: 20px;
+    margin-left: 20px;  
+}
+
+input[type="checkbox"] {
+    appearance: none;
+    width: 50px;
+    height: 43px;
+    background-color: #D9D9D9;
+    border-radius: 15px;
+}
+
+input[type="checkbox"]:checked {
+    background-color: #9DFFB9;
+}
+
+input[type="checkbox"]::before {
+    content: "\2713";
+    font-size: 30px;
+    color: #000000;
+    position: relative;
+    padding-left: 25%;
+    visibility: hidden;
+}
+
+input[type="checkbox"]:checked::before {
+    visibility: visible;
+}

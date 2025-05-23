@@ -1,0 +1,288 @@
+<!-- this is the markup. you can change the details (your own name, your own avatar etc.) but don’t change the basic structure! -->
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Task Category</title>
+    <link rel="stylesheet" href="../css/bootstrap.css">
+
+    <link rel="stylesheet" href="../css/editProfile.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" />
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&amp;display=swap">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.standalone.min.css">
+
+    <script>
+
+        if (sessionStorage.getItem("isLoggedIn") == "true") {
+
+
+        } else {
+            sessionStorage.clear();
+
+            window.location.href = 'login.html';
+
+
+        }
+    </script>
+
+
+</head>
+
+<body>
+
+    <div class="pageContent">
+        <div id="gradient"></div>
+        <div id="card">
+            <button class="back-button" id="backButton">
+                <i class="fas fa-arrow-left"></i>
+                Back
+            </button>
+            <div class="container rounded">
+
+                <div class="row">
+                    <div class="col-md-12 border-right profile-img">
+                        <div class="d-flex flex-column align-items-center text-center p-3 "><img class="rounded-circle"
+                                id="profileImage"
+                                src="https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg"
+                                width="90">
+                            <div class="file btn btn-primary">
+                                Change Photo
+                                <input type="file" name="file" id="file-input" />
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="col-md-12">
+                        <div class="p-3">
+
+                            <div class="row mt-2">
+                                <div class="col-6"><label>Firstname:</label><input type="text" id="firstNameInput"
+                                        class="form-control" placeholder="first name" value="Samantha"></div>
+                                <div class="col-6"><label>Lastname:</label><input type="text" id="lastNameInput"
+                                        class="form-control" value="Ruth" placeholder="last name"></div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-12"><label>Email:</label><input type="text" id="emailInput"
+                                        class="form-control" placeholder="Email" value="surenthar.rajamohan@yahoo.com">
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row mt-3">
+                                <div class="col-md-12"><label>Old Password:</label><input type="text"
+                                        class="form-control" placeholder="Enter Password" value=""></div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-6"><label>New Password:</label><input type="password"
+                                        class="form-control" placeholder="Enter New Password" value=""></div>
+                                <div class="col-6"><label>Confirm New Password:</label><input type="password"
+                                        class="form-control" value="" placeholder="Enter New Password"></div>
+                            </div>
+                            <div class="mt-4 butttonHolder "><button class="btn  w-100 profile-button" id="deleteButton"
+                                    type="button">Delete Profile</button>
+                            </div>
+                            <div class="mt-4 butttonHolder "><button class="btn  w-100 profile-button" id="saveButton"
+                                    type="button">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+<script src="../js/bootstrap.bundle.js"></script>
+<script>
+    document.getElementById("backButton").addEventListener("click", function (e) {
+        // Prevent the default action of the button
+        e.preventDefault();
+
+        // Change the current URL to the new page
+        window.location.href = "profile.html";
+    });
+
+
+    document.getElementById("deleteButton").addEventListener("click", function (e) {
+        // Prevent the default action of the button
+        e.preventDefault();
+        window.location.href = "landingPage.html";
+        // deleteUser(user).then(() => {
+        //     // User deleted.
+        //     alert("Account deleted");
+
+        // }).catch((error) => {
+        //     // An error ocurred
+        //     // ...
+        // });
+
+    });
+
+
+    // All promises resolved, now you can access the saved data
+
+    const firstName = sessionStorage.getItem("firstName");
+    const lastName = sessionStorage.getItem("lastName");
+    const email = sessionStorage.getItem("email");
+    //alert("First Name: " + firstName + "\nLast Name: " + lastName + "\nEmail: " + email);
+
+    var emailInput = document.getElementById('emailInput');
+    var firstNameInput = document.getElementById('firstNameInput');
+    var lastNameInput = document.getElementById('lastNameInput');
+
+    emailInput.setAttribute('value', email);
+    firstNameInput.setAttribute('value', firstName);
+    lastNameInput.setAttribute('value', lastName);
+
+
+
+
+</script>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+    import { getDatabase, child, ref, update, push } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
+    import { getAuth, updateEmail, deleteUser } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+    import { getStorage, ref as storageRefImport, uploadBytes  } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js";
+
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyCs8oBGLtVvXqX6A4vxOLD4c5ceBQcHYyA",
+        authDomain: "listly-to-do-list-app-7a80c.firebaseapp.com",
+        databaseURL: "https://listly-to-do-list-app-7a80c-default-rtdb.firebaseio.com",
+        projectId: "listly-to-do-list-app-7a80c",
+        storageBucket: "listly-to-do-list-app-7a80c.appspot.com",
+        messagingSenderId: "426555485808",
+        appId: "1:426555485808:web:3be48d388f62d663434eb5"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+////////////////////////////Image Upload////////////////////////////////////////////////////////
+    function uploadFileToStorage(file) {
+        // Get a reference to the desired storage location
+        const uid = sessionStorage.getItem("userID");
+        const storage = getStorage();
+        const storageRef = storageRefImport(storage, 'userProfilePicture/'+uid);
+
+        // Upload the file
+        uploadBytes(storageRef, file)
+            .then((snapshot) => {
+                console.log('Uploaded a blob or file!', snapshot);
+                // The photo has been successfully uploaded
+            })
+            .catch((error) => {
+                console.error('Error uploading photo:', error);
+                // An error occurred while uploading the photo
+            });
+    }
+
+
+    // Get the file input and the profile image element
+    const fileInput = document.getElementById('file-input');
+    const profileImage = document.getElementById('profileImage');
+
+    // Add an event listener to the file input
+    fileInput.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+
+        // Read the uploaded file as a data URL
+        reader.readAsDataURL(file);
+
+        // Handle the file reading completion
+        reader.onload = () => {
+            // Update the src attribute of the profile image with the data URL
+
+            profileImage.src = reader.result;
+            uploadFileToStorage(file);
+        };
+    });
+
+
+////////////////////////////////////////////////////////////////////////////////////////////
+
+    function dataChanged(uid, firstNameValue, lastNameValue, emailValue) {
+        // Initialize Firebase
+
+
+        const updates = {};
+        updates['/users/' + uid + '/' + 'firstName/'] = firstNameValue;
+        updates['/users/' + uid + '/' + 'lastName/'] = lastNameValue;
+        updates['/users/' + uid + '/' + 'email/'] = emailValue;
+
+
+        return update(ref(database), updates);;
+
+    }
+
+    function authenticationChange(emailValue) {
+        const userNow = auth.currentUser;
+
+        updateEmail(userNow, emailValue).then(() => {
+            // Email updated!
+            alert('Email updated in authentication');
+            window.location.href = "profile.html";
+        }).catch((error) => {
+            // An error occurred
+            // ...
+            console.log(error);
+        });
+
+
+
+
+    }
+
+    document.getElementById("saveButton").addEventListener("click", function (e) {
+        // Prevent the default action of the button
+        e.preventDefault();
+        const uid = sessionStorage.getItem("userID");
+
+        var emailInput = document.getElementById('emailInput');
+        var firstNameInput = document.getElementById('firstNameInput');
+        var lastNameInput = document.getElementById('lastNameInput');
+
+        var emailChanged = emailInput.value;
+        var firstNameChanged = firstNameInput.value;
+        var lastNameChanged = lastNameInput.value;
+
+        dataChanged(uid, firstNameChanged, lastNameChanged, emailChanged)
+            .then(() => {
+                console.log("User data updated successfully");
+                const credential = sessionStorage.getItem("password");
+
+                // User re-authenticated.
+                authenticationChange(emailChanged);
+
+                // Change the current URL to the new page
+                // window.location.href = "profile.html";
+            })
+            .catch((error) => {
+                console.error("Error updating user data:", error);
+            });
+
+
+    });
+
+
+
+
+
+</script>
+
+</html>

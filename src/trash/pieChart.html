@@ -1,0 +1,343 @@
+
+
+ <!--for reference on bootsrap grid feature -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initialscale=1">
+  <title>Todo List</title>
+
+   <!--Bootstrap CSS -->
+  <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">  
+
+  <!-- Custom CSS  -->
+  <link rel="stylesheet" href="../css/pieChart.css">
+  <script>
+
+    if(sessionStorage.getItem("isLoggedIn") == "true") {
+    
+    
+    }else {
+        sessionStorage.clear();
+                
+        window.location.href = 'login.html';
+    
+    
+    }
+    </script>
+    
+</head>
+
+<body>
+
+<!-- For Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand fs-2 fw-bold" href="home.html">
+        <img src="../assets/images/logo.png" alt="" width="50" height="50" class="d-inline-block align-text-center">
+        Listly</a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 w-100">
+          <li class="nav-item">
+            <a class="nav-link "  href="home.html">Home</a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="viewTaskProgress.html">Tasks</a>
+          </li>
+          <li class="nav-item ms-lg-auto dropdown">
+            <a class="nav-link dropdown-toggle " href="#" role="button" id="navbarDropdownMenuLink"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="../assets/images/profile_icon.png" alt="Profile" width="30" height="30"
+                class="d-inline-block align-text-center me-2">
+              My Profile
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <li><a class="dropdown-item" href="profile.html">View Profile</a></li>
+              <li><a class="dropdown-item" href="login.html">Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+  </nav>
+
+   <!-- PieChart -->
+  <br><br><br><br>
+
+  <section id="s-team" class="section">
+
+      <br><br><br>
+
+      <div class="b-skills">
+          <div class="container">
+              <h2>Progress Report</h2>
+
+              <div class="row">
+                  <div class="col-4">
+                      <div class="skill-item center-block">
+                          <div class="chart-container">
+                              <div class="chart " data-percent="92" data-bar-color="#F51616">
+                                  <span class="percent" data-after="%">92</span>
+                              </div>
+                          </div>
+
+                          <p>HIGH PRIORITY</p>
+                      </div>
+                  </div>
+
+                  <div class="col-4">
+                      <div class="skill-item center-block">
+                          <div class="chart-container">
+                              <div class="chart " data-percent="78" data-bar-color="#F7E372">
+                                  <span class="percent" data-after="%">78</span>
+                              </div>
+                          </div>
+
+                          <p>MEDIUM PRIORITY</p>
+                      </div>
+                  </div>
+
+                  <div class="col-4">
+                      <div class="skill-item center-block">
+                          <div class="chart-container">
+                              <div class="chart " data-percent="95" data-bar-color="#ffc0cb">
+                                  <span class="percent" data-after="%">95</span>
+                              </div>
+                          </div>
+
+                          <p>LOW PRIORITY</p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+  <br><br><br><br><br>
+
+
+
+  <br><br><br><br>
+  
+
+   
+  <!-- Custom JS -->
+  <script src="../js/app.js"></script>
+  <script src="../js/bootstrap.bundle.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootlint/1.1.0/bootlint.min.js"></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="../js/jquery-2.2.4.min.js"></script>
+    <script src="../js/jquery.appear.min.js"></script>
+    <script src="../js/jquery.easypiechart.min.js"></script>
+    <script>
+        'use strict';
+
+        var $window = $(window);
+
+        function run() {
+            var fName = arguments[0],
+                aArgs = Array.prototype.slice.call(arguments, 1);
+            try {
+                fName.apply(window, aArgs);
+            } catch (err) {
+
+            }
+        };
+
+        /* chart
+        ================================================== */
+        function _chart() {
+            $('.b-skills').appear(function () {
+                setTimeout(function () {
+                    $('.chart').easyPieChart({
+                        easing: 'easeOutElastic',
+                        delay: 3000,
+                        barColor: '#369670',
+                        trackColor: '#fff',
+                        scaleColor: false,
+                        lineWidth: 21,
+                        trackWidth: 21,
+                        size: 250,
+                        lineCap: 'round',
+                        onStep: function (from, to, percent) {
+                            this.el.children[0].innerHTML = Math.round(percent);
+                        }
+                    });
+                }, 150);
+            });
+        };
+
+
+        $(document).ready(function () {
+
+            run(_chart);
+
+
+        });
+
+
+
+    </script>
+
+</body>
+
+</html>
+<!--<!doctype html>
+<html>
+
+<head>
+
+    <title> About</title>
+    <link href="https://fonts.googleapis.com/css?family=Muli&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
+
+    <link rel="stylesheet" href="../css/pieChart.css">
+
+
+
+
+</head>
+
+<body>
+
+
+    <br><br><br><br>
+
+    <section id="s-team" class="section">
+
+        <br><br><br>
+
+        <div class="b-skills">
+            <div class="container">
+                <h2>Our Skills</h2>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <div class="skill-item center-block">
+                            <div class="chart-container">
+                                <div class="chart " data-percent="92" data-bar-color="#23afe3">
+                                    <span class="percent" data-after="%">92</span>
+                                </div>
+                            </div>
+
+                            <p>HTML</p>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <div class="skill-item center-block">
+                            <div class="chart-container">
+                                <div class="chart " data-percent="78" data-bar-color="#a7d212">
+                                    <span class="percent" data-after="%">78</span>
+                                </div>
+                            </div>
+
+                            <p>CSS3</p>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <div class="skill-item center-block">
+                            <div class="chart-container">
+                                <div class="chart " data-percent="95" data-bar-color="#ff4241">
+                                    <span class="percent" data-after="%">95</span>
+                                </div>
+                            </div>
+
+                            <p>BOOSTRAP</p>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <div class="skill-item center-block">
+                            <div class="chart-container">
+                                <div class="chart " data-percent="65" data-bar-color="#edc214">
+                                    <span class="percent" data-after="%">65</span>
+                                </div>
+                            </div>
+
+                            <p>PHOTOSHOP</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <br><br><br><br><br>
+
+
+
+    <br><br><br><br>
+
+
+
+    <script src="../js/jquery-2.2.4.min.js"></script>
+    <script src="../js/jquery.appear.min.js"></script>
+    <script src="../js/jquery.easypiechart.min.js"></script>
+    <script>
+        'use strict';
+
+        var $window = $(window);
+
+        function run() {
+            var fName = arguments[0],
+                aArgs = Array.prototype.slice.call(arguments, 1);
+            try {
+                fName.apply(window, aArgs);
+            } catch (err) {
+
+            }
+        };
+
+        /* chart
+        ================================================== */
+        function _chart() {
+            $('.b-skills').appear(function () {
+                setTimeout(function () {
+                    $('.chart').easyPieChart({
+                        easing: 'easeOutElastic',
+                        delay: 3000,
+                        barColor: '#369670',
+                        trackColor: '#fff',
+                        scaleColor: false,
+                        lineWidth: 21,
+                        trackWidth: 21,
+                        size: 250,
+                        lineCap: 'round',
+                        onStep: function (from, to, percent) {
+                            this.el.children[0].innerHTML = Math.round(percent);
+                        }
+                    });
+                }, 150);
+            });
+        };
+
+
+        $(document).ready(function () {
+
+            run(_chart);
+
+
+        });
+
+
+
+    </script>
+
+
+</body>
+
+</html>
+*/ -->

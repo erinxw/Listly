@@ -1,0 +1,191 @@
+body {
+  margin: 0 auto;
+  padding: 0;
+  background: #222;
+  background-image: url('../assets/images/newBg.jpg');
+  background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+
+.content {
+  margin-top: 30px;
+}
+
+.card-box {
+  background-color: #f7f7f7;
+  border: 1px solid #ebeff2;
+  border-radius: 4px;
+  padding: 20px;
+}
+
+.card-box h4 {
+  margin-top: 0;
+  font-size: 18px;
+}
+
+.taskList li {
+  padding: 15px;
+  background-color: #fff;
+  border: 1px solid #ebeff2;
+  margin-bottom: 15px;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  position: relative;
+  height:255px;
+}
+
+.taskList li:hover {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.taskList .checkbox {
+  margin-top: 5px;
+}
+
+.taskList .btn-container {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.taskList .btn {
+  margin-bottom: 5px;
+  padding: 8px 12px; /* Adjust button padding as needed */
+}
+
+.taskList .fa {
+  font-size: 16px;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+.taskList .clearfix {
+  clear: both;
+}
+
+.taskList .float-right {
+  float: right;
+}
+
+.btn-custom {
+  background-color: #4a90e2;
+  border-color: #4a90e2;
+}
+
+.btn-custom:hover {
+  background-color: #4288d0;
+  border-color: #4288d0;
+}
+
+.btn-custom i {
+  margin-right: 5px;
+}
+
+.m-b-30 {
+  margin-bottom: 30px;
+}
+
+.font-13 {
+    font-size: small;
+    font-weight: bold;
+    color: #000000;
+}
+
+.header-title {
+  font-size: 20px;
+  margin-bottom: 15px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.text-dark {
+  color: #2d353c;
+}
+
+.text-muted {
+  color: #8a8a8a;
+}
+
+.label {
+  display: inline-block;
+  margin-bottom: 1px;
+  margin-top: 1px;
+  font-weight: 500;
+}
+
+.task-title {
+  color: #1c2023;
+  margin-top: 3px;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.task-description {
+    color: #1c2023;
+  margin-top: 3px;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.task-due-date {
+    color: #1c2023;
+  margin-top: 5px;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+/* Optional: Add hover effect to buttons */
+.btn-success:hover {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+
+/*--------------------------------------------------------------
+# Preloader
+--------------------------------------------------------------*/
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  overflow: hidden;
+  background: #967258;
+}
+
+#preloader:before {
+  content: "";
+  position: fixed;
+  top: calc(50% - 30px);
+  left: calc(50% - 30px);
+  border: 6px solid #ECE0D0;
+  border-top-color: #967258;
+  border-bottom-color: #967258;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: animate-preloader 1s linear infinite;
+}
+
+@keyframes animate-preloader {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/*--------------------------------------------------------------
+# Disable aos animation delay on mobile devices
+--------------------------------------------------------------*/
+@media screen and (max-width: 768px) {
+  [data-aos-delay] {
+    transition-delay: 0 !important;
+  }
+}

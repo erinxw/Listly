@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initialscale=1">
+  <title>Todo List</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="../css/bootstrap.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../css/home.css">
+
+  <link rel="stylesheet" type="text/css" href="../css/notificationBadge.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" />
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&amp;display=swap">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.standalone.min.css">
+  <link rel="stylesheet" href="..\css\categorize tasks.css">
+  <script>
+    // Sarrwin test
+
+    //GG
+
+    if (sessionStorage.getItem("isLoggedIn") == "true") {
+
+
+    } else {
+      sessionStorage.clear();
+
+      window.location.href = 'login.html';
+
+
+    }
+  </script>
+</head>
+
+<body>
+
+  <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand fs-2 fw-bold" href="home.html">
+            <img src="../assets/images/logo.png" alt="" width="50" height="50"
+                class="d-inline-block align-text-center" style="padding: 5px;">
+            Listly</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+            aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 w-100">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="home.html">Home</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="viewTaskProgress.html">Tasks</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="priority.html">Priority</a>
+                </li>
+
+                <li class="nav-item ms-lg-auto">
+
+
+
+                    <button type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+                        aria-controls="offcanvasRight"
+                        class="icon-button align-text-center d-inline-block me-2 mt-2">
+                        <span class="material-icons bellButton">notifications</span>
+                        <span class="icon-button__badge" id="notificationCount"></span>
+                    </button>
+                    
+
+
+                </li>
+                <li class="nav-item  dropdown">
+                    <a class="nav-link dropdown-toggle " href="#" role="button" id="navbarDropdownMenuLink"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="../assets/images/profile_icon.png" alt="Profile" width="30" height="30"
+                            class="d-inline-block align-text-center me-2">
+                        My Profile
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="profile.html">View Profile</a></li>
+                        <li><a class="dropdown-item" id="logOut">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+</nav>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+  <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasRightLabel">Reminder Notifications</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+
+      <div class="list-group list-group-flush" style="max-height: 100vh; overflow-y: auto;">
+          <div class="list-group-item " id="sideBarList">
+              <!-- <div class="row mb-4 border">
+          <div class="col">
+            <strong>Item 1 Title:</strong> Lorem ipsum dolor sit amet
+          </div>
+          <div class="col">
+            <strong>Item 1 Description:</strong> Consectetur adipiscing elit
+          </div>
+          <div class="col">
+            <strong>Priority:</strong> High
+          </div>
+          <div class="col">
+            <strong>Due Date:</strong> 2023-06-17
+          </div>
+        </div> -->
+          </div>
+          <!-- Add more list items as needed -->
+      </div>
+  </div>
+</div>
+  <!-- content starts here -->
+  <div class="content">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="card-box">
+            <h4 class="text-dark header-title">Newly Added</h4>
+            <!-- add task button -->
+            <p class="text-muted m-b-30 font-13">
+              <a href="#" class="btn btn-custom btn-block mt-3 waves-effect waves-light" data-toggle="modal"
+                data-target="#addTaskModal">
+                <i class="fa fa-plus-circle"></i> Add New
+              </a>
+            </p>
+            <ul class="sortable-list taskList list-unstyled ui-sortable" id="newlyAdded">
+              <li class="task-warning ui-sortable-handle" id="task1">
+                <div class="checkbox checkbox-custom checkbox-single float-right">
+                  <label></label>
+                </div>
+            
+                When an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                <div class="clearfix"></div>
+                <div class="float-right mb-0 mt-2">
+                  <button type="button" class="btn btn-success btn-sm waves-effect waves-light"
+                   ><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                  <button type="button" class="btn btn-success btn-sm waves-effect waves-light"
+                    onclick="deleteTask(this)"><i class="fa fa-trash"></i></button>
+                  <button type="button" class="btn btn-success" 
+                    onclick="moveToInProgress(this)"><i class="fas fa-arrow-right"></i></button>
+
+                </div>
+              </li>
+              <li class="task-success ui-sortable-handle" id="task2">
+                <div class="checkbox checkbox-custom checkbox-single float-right">
+                  <label></label>
+                </div>
+                <br>
+          
+                Many desktop publishing packages and web page editors now use Lorem.
+                <div class="clearfix"></div>
+                <div class="float-right mb-0 mt-2">
+                  <button type="button" class="btn btn-success btn-sm waves-effect waves-light"
+                   ><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                  <button type="button" class="btn btn-success btn-sm waves-effect waves-light"
+                    onclick="deleteTask(this)"><i class="fa fa-trash"></i></button>
+                    <button type="button" class="btn btn-success" 
+                    onclick="moveToInProgress(this)"><i class="fas fa-arrow-right"></i></button>
+
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="card-box">
+            <h4 class="text-dark header-title">In Progress</h4>
+            <ul class="sortable-list taskList list-unstyled ui-sortable" id="inprogress">
+              <li id="task9" class="ui-sortable-handle">
+                <div class="checkbox checkbox-custom checkbox-single float-right">
+                  <label></label>
+                </div>If you are going to use a passage of Lorem Ipsum..
+                <div class="clearfix"></div>
+                <div class="float-right mb-0 mt-2">
+                  <button type="button" class="btn btn-success btn-sm waves-effect waves-light"
+                   ><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                  <button type="button" class="btn btn-success btn-sm waves-effect waves-light"
+                    onclick="deleteTask(this)"><i class="fa fa-trash"></i></button>
+                  <button type="button" class="btn btn-success" 
+                     onclick="moveToCompleted(this)"><i class="fa fa-check" aria-hidden="true"></i></button>
+
+                </div>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="card-box">
+            <h4 class="text-dark header-title">Completed</h4>
+            <p class="text-muted m-b-30 font-13">Wow! Good Job In Completing Your Tasks</p>
+            <ul class="sortable-list taskList list-unstyled ui-sortable" id="completed">
+              <li class="task-warning ui-sortable-handle" id="task14">
+                <div class="checkbox checkbox-custom checkbox-single float-right">
+                  <label></label>
+                </div>When an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                <div class="clearfix"></div>
+                <div class="float-right mb-0 mt-2">
+                  <button type="button" class="btn btn-success btn-sm waves-effect waves-light"
+                  ><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                  <button type="button" class="btn btn-success btn-sm waves-effect waves-light"
+                    onclick="deleteTask(this)"><i class="fa fa-trash"></i></button>
+                  <button type="button" class="btn btn-success" 
+                    onclick="moveToCompleted(this)"><i class="fa fa-check" aria-hidden="true"></i></button>
+
+                </div>
+              </li>
+              <li class="task-success ui-sortable-handle" id="task15">
+                <div class="checkbox checkbox-custom checkbox-single float-right">
+                  <label></label>
+                </div>Many desktop publishing packages and web page editors now use Lorem.
+                <div class="clearfix"></div>
+                <div class="float-right mb-0 mt-2">
+                  <button type="button" class="btn btn-success btn-sm waves-effect waves-light"
+                   ><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                  <button type="button" class="btn btn-success btn-sm waves-effect waves-light"
+                    onclick="deleteTask(this)"><i class="fa fa-trash"></i></button>
+                  <button type="button" class="btn btn-success" 
+                    onclick="moveToCompleted(this)"><i class="fa fa-check" aria-hidden="true"></i></button>
+
+                </div>
+              </li>
+          </div>
+        </div>
+        <!-- end row -->
+      </div>
+      <!-- container -->
+    </div>
+
+    <!-- Edit Task Modal -->
+    <div class="modal fade" id="editTaskModal" tabindex="-1" role="dialog" aria-labelledby="editTaskModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editTaskModalLabel">Edit Task</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+
+
+          <div class="modal-body">
+            <!-- Edit task form-->
+            <form id="editTaskForm">
+              <div class="form-group">
+                <label for="editTaskTitle">Task Title</label>
+                <input type="text" class="form-control" id="editTaskTitle" >
+              </div>
+              <div class="form-group">
+                <label for="editTaskDescription">Task Description</label>
+                <textarea class="form-control" id="editTaskDescription" rows="3"></textarea>
+              </div>
+              <div class="form-group">
+                <label for="dueDate">Due Date</label>
+                <input type="date" class="form-control" id="EditdueDate">
+              </div>
+              <div class="form-group">
+                <label for="taskPriority">Task Priority</label>
+                <select class="form-control" id="EditTaskPriority">
+                  <option value="low">Low</option>
+                  <option value="medium">Medium</option>
+                  <option value="high">High</option>
+                </select>
+              </div>
+
+              <input type="hidden" id="editTaskId">
+
+
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="saveEditTask">Save Changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- Add New Task Modal -->
+    <div class="modal fade" id="addTaskModal" tabindex="-1" role="dialog" aria-labelledby="addTaskModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addTaskModalLabel">Add New Task</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- Add your task form here -->
+            <form id="taskForm">
+              <div class="form-group">
+                <label for="taskTitle">Task Title</label>
+                <input type="text" class="form-control" id="taskTitle" placeholder="Enter task title">
+              </div>
+              <div class="form-group">
+                <label for="taskDescription">Task Description</label>
+                <textarea class="form-control" id="taskDescription" rows="3"
+                  placeholder="Enter task description"></textarea>
+              </div>
+              <div class="form-group">
+                <label for="dueDate">Due Date</label>
+                <input type="date" class="form-control" id="dueDate">
+              </div>
+              <div class="form-group">
+                <label for="taskPriority">Task Priority</label>
+                <select class="form-control" id="taskPriority">
+                  <option value="low">Low</option>
+                  <option value="medium">Medium</option>
+                  <option value="high">High</option>
+                </select>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="saveTaskBtn">Save Task</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+ <!-- Edit Task Modal -->
+ <div class="modal fade" id="editTaskModal1" tabindex="-1" role="dialog" aria-labelledby="editTaskModalLabel1"
+ aria-hidden="true">
+ <div class="modal-dialog" role="document">
+   <div class="modal-content">
+     <div class="modal-header">
+       <h5 class="modal-title" id="editTaskModalLabel1">Edit Task</h5>
+       <button type="button" class="close" data-dismiss="modal" aria-label="Close1">
+         <span aria-hidden="true">&times;</span>
+       </button>
+     </div>
+
+
+
+     <div class="modal-body">
+       <!-- Edit task form-->
+       <form id="editTaskForm1">
+         <div class="form-group">
+           <label for="editTaskTitle1">Task Title</label>
+           <input type="text" class="form-control" id="editTaskTitle1" >
+         </div>
+         <div class="form-group">
+           <label for="editTaskDescription1">Task Description</label>
+           <textarea class="form-control" id="editTaskDescription1" rows="3"></textarea>
+         </div>
+         <div class="form-group">
+           <label for="dueDate1">Due Date</label>
+           <input type="date" class="form-control" id="EditdueDate1">
+         </div>
+         <div class="form-group">
+           <label for="taskPriority1">Task Priority</label>
+           <select class="form-control" id="EditTaskPriority1">
+             <option value="low">Low</option>
+             <option value="medium">Medium</option>
+             <option value="high">High</option>
+           </select>
+         </div>
+
+         <input type="hidden" id="editTaskId1">
+
+
+       </form>
+     </div>
+     <div class="modal-footer">
+       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+       <button type="button" class="btn btn-primary" id="saveEditTask1">Save Changes</button>
+     </div>
+   </div>
+
+ </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+    <script type="module">
+
+ //////////////////////Configurations/////////////////////////////////////////////
+
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+    
+      import { getDatabase, ref, push, onValue, set, remove, get} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
+  
+      import {  update } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
+
+      import { getAuth, setPersistence, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+      
+      //Call the functions upon loading
+      document.addEventListener("DOMContentLoaded", function() {
+  
+    // Your web app's Firebase configuration
+      const firebaseConfig = {
+          apiKey: "AIzaSyCs8oBGLtVvXqX6A4vxOLD4c5ceBQcHYyA",
+          authDomain: "listly-to-do-list-app-7a80c.firebaseapp.com",
+          databaseURL: "https://listly-to-do-list-app-7a80c-default-rtdb.firebaseio.com",
+          projectId: "listly-to-do-list-app-7a80c",
+          storageBucket: "listly-to-do-list-app-7a80c.appspot.com",
+          messagingSenderId: "426555485808",
+          appId: "1:426555485808:web:3be48d388f62d663434eb5"
+      };
+  
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const database = getDatabase(app);
+      const auth = getAuth();
+///////////////////////End of configuration////////////////////////////////////////////////
+
+ ///////////////////////////////////Side Bar//////////////////////////////////
+
+        //retrieval and calculation of data
+        function getData(location) {
+            return new Promise((resolve, reject) => {
+                
+              const uid = sessionStorage.getItem("userID");
+                const tasksReference = ref(database, 'tasks/' + uid + location);
+                onValue(tasksReference, (snapshot) => {
+                    const data = snapshot.val();
+                    const length = Object.keys(data).length;
+                    resolve({ data, length }); // Resolve the promise with the retrieved data
+                }, (error) => {
+                    reject(error); // Reject the promise if there's an error
+                });
+            });
+        }
+
+        function reminderDateCheck(priority, dueDate) {
+
+            const today = new Date();
+            const formattedCompletionDate = today.toISOString().split("T")[0];
+
+            // Convert dueDate to a Date object
+            const dueDateObj = new Date(dueDate);
+
+            // Calculate the time difference in milliseconds
+            const timeDifference = (dueDateObj.getTime() - new Date(formattedCompletionDate).getTime());
+
+            // Calculate the number of days
+            const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+
+            console.log(daysDifference);
+
+            if (priority === 'high' && daysDifference <= 4 && daysDifference >= 0) {
+                return true;
+            } else if (priority === 'medium' && daysDifference <= 3 && daysDifference >= 0) {
+                return true;
+            } else if (priority === 'low' && daysDifference <= 2 && daysDifference >= 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        var totalReminderTasks = 0;
+        function populateSidebar(category) {
+
+            getData('/' + category).then(({ data, length }) => {
+
+                const allTasks = Object.values(data);
+                console.log(allTasks);
+                for (const task of allTasks) {
+                    // const taskPriority = task.TaskPriority;
+                    // const taskTitle = task.TaskTitle;
+                    // const taskDescription = task.TaskDescription;
+                    // const taskDueDate = task.DueDate;
+                    var shouldRemind = reminderDateCheck(task.TaskPriority, task.DueDate);
+
+                    if (shouldRemind) {
+                      totalReminderTasks++;
+                        var tasksElement = document.createElement("div");
+                        tasksElement.setAttribute("class", 'row mb-2');
+                        if(task.TaskPriority === 'high'){
+                  tasksElement.innerHTML = `
+        
+        <div class="row">
+<div class="col">
+  
+  <div class="card text-white bg-danger">
+<div class="card-header">
+  ${task.DueDate}  (${task.TaskPriority})
+</div>
+<div class="card-body">
+  <h4 class="card-title">${task.TaskTitle}</h4>
+  <h6 class="card-text">${task.TaskDescription}</h6>
+  
+  
+</div>
+</div>
+</div>
+</div>
+                
+
+`;
+                }else if(task.TaskPriority === 'medium'){
+                  tasksElement.innerHTML = `
+        
+        <div class="row">
+<div class="col">
+  
+  <div class="card text-white bg-warning">
+<div class="card-header">
+  ${task.DueDate}  (${task.TaskPriority})
+</div>
+<div class="card-body">
+  <h4 class="card-title">${task.TaskTitle}</h4>
+  <h6 class="card-text">${task.TaskDescription}</h6>
+  
+  
+</div>
+</div>
+</div>
+</div>
+                
+
+`;
+                }else if(task.TaskPriority === 'low'){
+                  tasksElement.innerHTML = `
+        
+        <div class="row">
+<div class="col">
+  
+  <div class="card text-white bg-success">
+<div class="card-header">
+  ${task.DueDate}  (${task.TaskPriority})
+</div>
+<div class="card-body">
+  <h4 class="card-title">${task.TaskTitle}</h4>
+  <h6 class="card-text">${task.TaskDescription}</h6>
+  
+  
+</div>
+</div>
+</div>
+</div>
+                
+
+`;
+                }
+                        var sideBarList = document.getElementById("sideBarList");
+                        sideBarList.appendChild(tasksElement);
+                    }
+                }
+                document.getElementById('notificationCount').innerText = totalReminderTasks;
+        sessionStorage.setItem('notification', totalReminderTasks);
+
+            }).catch((error) => {
+                // Handle any errors that occurred
+                console.log(error);
+            });
+
+
+
+        }
+
+
+
+
+        populateSidebar('inProgress');
+        populateSidebar('todo');
+        
+           
+        
+
+
+
+
+
+        ////////////////////////////////////////////////////////////////////////
+
+
+//////////////////////////// Add sample task Save changes in pop up////////////////////////////////////
+
+      const uid = sessionStorage.getItem("userID");
+  
+      const saveTaskButton = document.getElementById("saveTaskBtn");
+      saveTaskButton.addEventListener("click", addTask);
+
+      function addTask() {
+        var taskTitle = document.getElementById("taskTitle").value;
+        var taskDescription = document.getElementById("taskDescription").value;
+        var dueDate = document.getElementById("dueDate").value;
+        var taskPriority = document.getElementById("taskPriority").value;
+  
+        const todoListRef = ref(database, 'tasks/' + uid + '/todo/');
+        const newTaskRef = push(todoListRef); // Generate a unique ID for the new task
+        const date = new Date();
+        set(newTaskRef, {
+          TaskTitle: taskTitle,
+          TaskDescription: taskDescription,
+          DueDate: dueDate,
+          TaskPriority: taskPriority
+        }).then((task) => {
+          var newTaskElement = document.createElement("li");
+          newTaskElement.setAttribute("data-task-id", newTaskRef.key);
+          newTaskElement.innerHTML = `
+          <div class="checkbox checkbox-custom checkbox-single float-right">
+              <label></label>
+            </div>
+            <span class="label">Title:</span>
+  <div class="task-title">${task.TaskTitle}</div>
+  <span class="label">Description:</span>
+  <div class="task-description">${task.TaskDescription}</div>
+  <span class="label">Due Date :</span>
+  <div class="task-description">${task.DueDate}</div>
+            <div class="clearfix"></div>
+            <div class="float-right mb-0 mt-2">
+              <button type="button" id="edit-${taskId}" class="btn btn-success btn-sm waves-effect waves-light" onclick="editTask('${taskId}')" data-toggle="modal" data-target="#editTaskModal">
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+                </button>
+
+                    ><i class="fa fa-pencil" aria-hidden="true" ></i></button>
+                    <button type="button" id="delete-${taskId}"   class="btn btn-success btn-sm waves-effect waves-light" >
+                <i class="fa fa-trash"></i>
+                  </button>
+                    <button type="button"  id="progress-${taskId}" class="btn btn-success inProgressBtn" data-task-id="${taskId} onclick="moveToInProgressAndDelete('${taskId}')">
+                      <i class="fas fa-arrow-right"></i></button>
+
+                </div>
+          `;
+  
+          var taskList = document.getElementById("newlyAdded");
+          taskList.appendChild(newTaskElement);
+  
+        
+  
+          saveTaskButton.removeEventListener("click", addTask); // Remove the event listener
+          saveTaskButton.addEventListener("click", addTask); // Add the event listener again
+        });
+
+          // Clear the form fields
+          document.getElementById("taskTitle").value = "";
+          document.getElementById("taskDescription").value = "";
+          document.getElementById("dueDate").value = "";
+          document.getElementById("taskPriority").value = "low";
+      }
+
+//////////////////////////add task pop End of save task////////////////////////////////
+  
+///////////////////////Sub loading: Display in homepage for to do only//////////////////////////////
+      // Retrieve and display tasks from Firebase
+    
+      const todoListRef = ref(database, 'tasks/' + uid + '/todo/');
+      onValue(todoListRef, (snapshot) => {
+        var taskList = document.getElementById("newlyAdded");
+        taskList.innerHTML = ""; // Clear the list before adding new tasks
+  
+        snapshot.forEach((childSnapshot) => {
+          var task = childSnapshot.val();
+          var taskId = childSnapshot.key;
+  
+          var newTaskElement = document.createElement("li");
+          newTaskElement.setAttribute("data-task-id", taskId);
+          newTaskElement.innerHTML = `
+          <div class="checkbox checkbox-custom checkbox-single float-right">
+    <label></label>
+  </div>
+
+  <span class="label">Title:</span>
+  <div class="task-title">${task.TaskTitle}</div>
+  <span class="label">Description:</span>
+  <div class="task-description">${task.TaskDescription}</div>
+  <span class="label">Due Date :</span>
+  <div class="task-description">${task.DueDate}</div>
+  <div class="clearfix"></div>
+  <div class="float-right mb-0 mt-2">
+    <button type="button" id="edit-${taskId}" class="btn btn-success btn-sm waves-effect waves-light editTaskBtn" data-task-id="${taskId}" data-toggle="modal" data-target="#editTaskModal">
+      <i class="fa fa-pencil" aria-hidden="true"></i>
+    </button>
+    <button type="button" id="delete-${taskId}" class="btn btn-success btn-sm waves-effect waves-light deleteBtn1" data-task-id="${taskId}" >
+  <i class="fa fa-trash"></i>
+</button>
+
+<button type="button" id="progress-${taskId}" class="btn btn-success inProgressBtn" data-task-id="${taskId}" ">
+  <i class="fas fa-arrow-right"></i>
+</button>
+
+  </div>
+`;
+
+
+                 
+         var taskList = document.getElementById("newlyAdded");
+          taskList.appendChild(newTaskElement);
+        });
+      });
+
+///////////////End of Display in homepage for to do only//////////////////////////////
+
+
+/////////////////Main loading////////////////////
+
+
+    
+////////////////////End of main loading//////////////////////////////
+
+
+/////Delete Task in TODO///////////////
+document.addEventListener("click", function(event) {
+    if (event.target.classList.contains("deleteBtn1")) {
+      const taskId = event.target.dataset.taskId;
+     DeleteTaskTodo(taskId);
+    }
+  });
+
+
+  function DeleteTaskTodo(taskId) {
+  const taskRef = ref(database, 'tasks/' + uid + '/todo/' + taskId);
+
+  get(taskRef)
+          remove(taskRef)
+            .then(() => {
+              console.log("Task deleted from 'todo' category.");
+            })
+            .catch((error) => {
+              console.error("Failed to delete task:", error);
+            });
+        }
+
+////////////////////////////////////////////////////
+
+
+
+
+//////////////////Save changes button in pop up//////////
+  const editTaskButton = document.getElementById("saveEditTask");
+  ////////////Pop up//////////
+  const editTaskForm = document.getElementById("editTaskForm");
+  
+
+
+  
+  
+  // Function to show data in pop up window/////////
+  
+      function editTask(taskId) {
+    // Retrieve the task data from Firebase using the taskId
+    const taskRef = ref(database, 'tasks/' + uid + '/todo/' + taskId);
+    onValue(taskRef, (snapshot) => {
+      const task = snapshot.val();
+
+      // Populate the edit task form fields with the task data
+      document.getElementById("editTaskTitle").value = task.TaskTitle;
+      document.getElementById("editTaskDescription").value = task.TaskDescription;
+      document.getElementById("EditdueDate").value = task.DueDate;
+      document.getElementById("EditTaskPriority").value = task.TaskPriority;
+      document.getElementById("editTaskId").value = taskId;
+    });
+  }
+  
+
+  // Event listener for edit task form submission
+  //////save changes in edit task form////////////
+  editTaskButton.addEventListener("click", function(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    // Retrieve the edited task data from the form
+    const taskId = document.getElementById("editTaskId").value;
+    const updatedTask = {
+      TaskTitle: document.getElementById("editTaskTitle").value,
+      TaskDescription: document.getElementById("editTaskDescription").value,
+      DueDate: document.getElementById("EditdueDate").value,
+      TaskPriority: document.getElementById("EditTaskPriority").value
+    };
+
+    // Update the task data in Firebase
+    const taskRef = ref( database, 'tasks/' + uid + '/todo/'+taskId);
+    update(taskRef, updatedTask).then(() => {
+      // Close the edit task modal
+      const editTaskModal = document.getElementById("editTaskModal");
+      // const bootstrapModal = bootstrap.Modal.getInstance(editTaskModal);
+      // bootstrapModal.hide();
+
+      // Clear the form fields
+      editTaskForm.reset();
+    });
+  });
+      
+  // ...
+
+  // Attach event listeners to dynamically created edit task buttons
+  ///////pen icon///////////////
+  document.addEventListener("click", function(event) {
+    if (event.target.classList.contains("editTaskBtn")) {
+      const taskId = event.target.dataset.taskId;
+      editTask(taskId);
+    }
+  });
+
+  // ...
+
+
+///////////////////////////
+function moveToInProgressAndDelete(taskId) {
+  const taskRef = ref(database, 'tasks/' + uid + '/todo/' + taskId);
+
+  get(taskRef)
+    .then((snapshot) => {
+      const task = snapshot.val();
+
+      const taskStatusRef = ref(database, 'tasks/' + uid + '/inProgress/' + taskId);
+      set(taskStatusRef, task)
+        .then(() => {
+          console.log("Task moved to 'inProgress' category.");
+
+          // Delete the task from 'todo' category
+          remove(taskRef)
+            .then(() => {
+              console.log("Task deleted from 'todo' category.");
+            })
+            .catch((error) => {
+              console.error("Failed to delete task:", error);
+            });
+        })
+        .catch((error) => {
+          console.error("Failed to move task to 'inProgress' category:", error);
+        });
+    })
+    .catch((error) => {
+      console.error("Failed to retrieve task from 'todo' category:", error);
+    });
+}
+
+
+/////arrow icon
+document.addEventListener("click", function(event) {
+    if (event.target.classList.contains("inProgressBtn")) {
+      const taskId = event.target.dataset.taskId;
+      moveToInProgressAndDelete(taskId);
+    }
+  });
+
+  ///////////////////////Sub loading: Display in homepage for in progress only//////////////////////////////
+      // Retrieve and display tasks from Firebase
+    
+      const inProgressListRef = ref(database, 'tasks/' + uid + '/inProgress/');
+      onValue(inProgressListRef, (snapshot) => {
+        var inProgressTaskList = document.getElementById("inprogress");
+        inProgressTaskList.innerHTML = ""; // Clear the list before adding new tasks
+  
+        snapshot.forEach((childSnapshot) => {
+          var task = childSnapshot.val();
+          var taskId = childSnapshot.key;
+  
+          var inProgressTaskElement = document.createElement("li");
+          inProgressTaskElement.setAttribute("data-task-id", taskId);
+          inProgressTaskElement.innerHTML = `
+          <div class="checkbox checkbox-custom checkbox-single float-right">
+                  <label></label>
+                </div>
+               
+                <span class="label">Title:</span>
+  <div class="task-title">${task.TaskTitle}</div>
+  <span class="label">Description:</span>
+  <div class="task-description">${task.TaskDescription}</div>
+  <span class="label">Due Date :</span>
+  <div class="task-description">${task.DueDate}</div>
+                <div class="clearfix"></div>
+                <div class="float-right mb-0 mt-2">
+                  <button type="button" id="edit-${taskId}" class="btn btn-success btn-sm waves-effect waves-light editTaskBtn1" data-task-id="${taskId}" data-toggle="modal" data-target="#editTaskModal1">
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                   </button>
+                  <button type="button" class="btn btn-success btn-sm waves-effect waves-light deleteBtn" data-task-id="${taskId}"
+                   ><i class="fa fa-trash"></i></button>
+                    <button type="button" id="complete-${taskId}" class="btn btn-success completeBtn"  data-task-id="${taskId}" " 
+                    ><i class="fa fa-check" aria-hidden="true"></i></button>
+
+                </div>
+`;
+
+
+                 
+         var inProgressTaskList = document.getElementById("inprogress");
+         inProgressTaskList.appendChild(inProgressTaskElement);
+        });
+      });
+
+///////////////End of Display in homepage for to do only//////////////////////////////
+
+
+
+
+//////////////DELETE sample TASK IN INPROGRESS
+document.addEventListener("click", function(event) {
+    if (event.target.classList.contains("deleteBtn")) {
+      const taskId = event.target.dataset.taskId;
+     DeleteTaskInProgress(taskId);
+    }
+  });
+
+
+  function DeleteTaskInProgress(taskId) {
+  const taskRef = ref(database, 'tasks/' + uid + '/inProgress/' + taskId);
+
+  get(taskRef)
+          remove(taskRef)
+            .then(() => {
+              console.log("Task deleted from 'inProgress' category.");
+            })
+            .catch((error) => {
+              console.error("Failed to delete task:", error);
+            });
+        }
+      
+
+      
+        const editTaskButton1=document.getElementById("saveEditTask1");
+        const editTaskForm1=document.getElementById("editTaskForm1");
+
+//////////////////Edit Task for InProgres////////////////////////////////
+
+function editTask1(taskId) {
+    // Retrieve the task data from Firebase using the taskId
+    const taskRef = ref(database, 'tasks/' + uid + '/inProgress/' + taskId);
+    onValue(taskRef, (snapshot) => {
+      const taskinProgressEdit = snapshot.val();
+
+      // Populate the edit task form fields with the task data
+      document.getElementById("editTaskTitle1").value = taskinProgressEdit.TaskTitle;
+      document.getElementById("editTaskDescription1").value = taskinProgressEdit.TaskDescription;
+      document.getElementById("EditdueDate1").value = taskinProgressEdit.DueDate;
+      document.getElementById("EditTaskPriority1").value = taskinProgressEdit.TaskPriority;
+      document.getElementById("editTaskId1").value = taskId;
+    });
+    
+
+  }
+  // Event listener for edit task form submission
+  //////save changes in edit task form////////////
+  editTaskButton1.addEventListener("click", function(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    // Retrieve the edited task data from the form
+    const taskId = document.getElementById("editTaskId1").value;
+    const updatedTask = {
+      TaskTitle: document.getElementById("editTaskTitle1").value,
+      TaskDescription: document.getElementById("editTaskDescription1").value,
+      DueDate: document.getElementById("EditdueDate1").value,
+      TaskPriority: document.getElementById("EditTaskPriority1").value
+    };
+  
+    // Updated Sample the task data in Firebase
+    const taskRef = ref( database, 'tasks/' + uid + '/inProgress/'+taskId);
+    update(taskRef, updatedTask).then(() => {
+      // Close the edit task modal
+      const editTaskModal = document.getElementById("editTaskModal1");
+      // const bootstrapModal = bootstrap.Modal.getInstance(editTasekModal);
+      // bootstrapModal.hide();
+    
+      // Clear the form fields
+      editTaskForm1.reset();
+    });
+  });
+
+
+  // ...
+
+  // Attach event listeners to dynamically created edit task buttons
+  ///////pen icon///////////////
+  document.addEventListener("click", function(event) {
+    if (event.target.classList.contains("editTaskBtn1")) {
+      const taskId = event.target.dataset.taskId;
+      editTask1(taskId);
+    }
+  });
+
+
+/////////////////////////////////////////////////////////////////////////////////
+
+
+////////////////Moving To complete Task
+
+
+function moveToCompleted(taskId) {
+          const taskRef = ref(database, 'tasks/' + uid + '/inProgress/' + taskId);
+
+          get(taskRef)
+            .then((snapshot) => {
+              const task = snapshot.val();
+
+              // Add completedDate field to the task object
+              const completedTask = { ...task, completedDate: new Date().toISOString() };
+
+              const taskStatusRef = ref(database, 'tasks/' + uid + '/complete/' + taskId);
+              set(taskStatusRef, completedTask)
+                .then(() => {
+                  console.log("Task moved to 'complete' category.");
+
+                  // Delete the task from 'todo' category
+                  remove(taskRef)
+                    .then(() => {
+                      console.log("Task deleted from 'inProgress' category.");
+                    })
+                    .catch((error) => {
+                      console.error("Failed to delete task:", error);
+                    });
+                })
+                .catch((error) => {
+                  console.error("Failed to move task to 'complete' category:", error);
+                });
+            })
+            .catch((error) => {
+              console.error("Failed to retrieve task from 'inProgress' category:", error);
+            });
+        }
+
+
+
+/////complete icon
+document.addEventListener("click", function(event) {
+    if (event.target.classList.contains("completeBtn")) {
+      const taskId = event.target.dataset.taskId;
+      moveToCompleted(taskId);
+    }
+  });
+
+// Retrieve and display tasks from Firebase
+    
+      const completeRef = ref(database, 'tasks/' + uid + '/complete/');
+      onValue(completeRef, (snapshot) => {
+        var completeTaskList = document.getElementById("completed");
+        completeTaskList.innerHTML = ""; // Clear the list before adding new tasks
+  
+        snapshot.forEach((childSnapshot) => {
+          var task = childSnapshot.val();
+          var taskId = childSnapshot.key;
+  
+          var completeTaskElement = document.createElement("li");
+          completeTaskElement.setAttribute("data-task-id", taskId);
+          completeTaskElement.innerHTML = `
+          <div class="checkbox checkbox-custom checkbox-single float-right">
+                  <label></label>
+                </div>
+               
+                <span class="label">Title:</span>
+  <div class="task-title">${task.TaskTitle}</div>
+  <span class="label">Description:</span>
+  <div class="task-description">${task.TaskDescription}</div>
+  <span class="label">Due Date :</span>
+  <div class="task-description">${task.DueDate}</div>
+                <div class="clearfix"></div>
+                <div class="float-right mb-0 mt-2">
+             
+                  <button type="button" class="btn btn-success btn-sm waves-effect waves-light deleteBtn2" data-task-id="${taskId}"
+                   ><i class="fa fa-trash"></i></button>
+                  
+
+`;
+
+
+                 
+         var completeTaskList = document.getElementById("completed");
+         completeTaskList.appendChild(completeTaskElement);
+        });
+      });
+     
+
+
+      function DeleteTaskCompleted(taskId) {
+  const taskRef = ref(database, 'tasks/' + uid + '/complete/' + taskId);
+
+  get(taskRef)
+          remove(taskRef)
+            .then(() => {
+              console.log("Task deleted from 'complete' category.");
+            })
+            .catch((error) => {
+              console.error("Failed to delete task:", error);
+            });
+        }
+
+
+
+
+
+//////////////////////////////////////DELETE IN COMPLETED////////////////////////////////////////////////////
+document.addEventListener("click", function(event) {
+    if (event.target.classList.contains("deleteBtn2")) {
+      const taskId = event.target.dataset.taskId;
+      DeleteTaskCompleted(taskId);
+    }
+
+   
+  });
+
+ 
+  // Get the logout link element
+  const logoutLink = document.getElementById('logOut');
+
+// Add a click event listener
+logoutLink.addEventListener('click', function (e) {
+  e.preventDefault(); // Prevent the default link behavior
+  const auth = getAuth();
+  // Clear the session or perform any necessary logout-related tasks here
+  sessionStorage.clear();
+  // Run the signOut function from Firebase
+  auth.signOut().then(function () {
+    // After successful sign out, navigate to the landing page
+
+    window.location.href = 'landingPage.html';
+  }).catch(function (error) {
+    console.error('Error signing out:', error);
+  });
+});      
+
+
+});
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+   </script>
+
+    <!-- edit task button script -->
+    <script>
+     
+    </script>
+
+    <!-- update task -->
+    <script>
+      
+
+    </script>
+
+    <!-- delete button script -->
+    <script>
+      // function deleteTask(button) {
+      //   // Show a confirmation popup to confirm the deletion
+      //   if (confirm("Are you sure you want to delete this task?")) {
+      //     // Get the parent task element
+      //     var taskElement = button.parentNode.parentNode;
+
+      //     // Remove the task element from the DOM
+      //     taskElement.remove();
+      //   }
+      // }
+
+    </script>
+
+    <!-- updating the progress -->
+    <script>
+//       function moveToInProgress(button) {
+//         var taskItem = button.parentNode;
+//         var taskContent = taskItem.innerHTML;
+//         var newlyAddedList = document.getElementById('newlyAdded');
+//         var inProgressList = document.getElementById('inprogress');
+        
+//         var newTaskItem = document.createElement('li');
+//         newTaskItem.className = 'task-item';
+//         newTaskElement.innerHTML = `
+//           < <div class="checkbox checkbox-custom checkbox-single float-right">
+//     <label></label>
+//   </div>
+//   <div class="task-title">${TaskTitle}</div>
+//   <div class="task-description">${TaskDescription}</div>
+//   <div class="clearfix"></div>
+//   <div class="float-right mb-0 mt-2">
+//     <button type="button" id="edit-${taskId}" class="btn btn-success btn-sm waves-effect waves-light editTaskBtn" data-task-id="${taskId}" data-toggle="modal" data-target="#editTaskModal">
+//       <i class="fa fa-pencil" aria-hidden="true"></i>
+//     </button>
+//     <button type="button" id="delete-${taskId}" class="btn btn-success btn-sm waves-effect waves-light" onclick="deleteTask('${taskId}')">
+//   <i class="fa fa-trash"></i>
+// </button>
+
+//     <button type="button" id="progress-${taskId}" class="btn btn-success" onclick="moveToInProgress(this)">
+//       <i class="fas fa-arrow-right"></i>
+//     </button>
+//   </div>
+//           `;
+
+//         inProgressList.appendChild(newTaskItem);
+//         newlyAddedList.removeChild(taskItem);
+//       }
+
+//       function moveToCompleted(button) {
+//         var taskItem = button.parentNode;
+//         var taskContent = taskItem.innerHTML;
+//         var inProgressList = document.getElementById('inprogress');
+//         var completedList = document.getElementById('completed');
+        
+//         var newTaskItem = document.createElement('li');
+//         newTaskItem.className = 'task-item';
+//         newTaskItem.innerHTML = taskContent;
+
+//         completedList.appendChild(newTaskItem);
+//         inProgressList.removeChild(taskItem); 
+//        }
+    
+    </script>
+
+
+
+
+
+
+
+
+
+    <!-- Custom JS -->
+    <script src="../js/app.js"></script>
+    <script src="../js/bootstrap.bundle.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootlint/1.1.0/bootlint.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    
+
+   
+
+</body>
+
+</html>
